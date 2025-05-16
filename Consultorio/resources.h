@@ -15,6 +15,7 @@
 #define IDC_BTN_LOGIN_ENTRAR            1113//BOTON INICIAR SESION
 #define IDC_BTN_LOGIN_REGISTRAR         1114//BOTON PARA IR A LA CREACION DE USUARIO
 
+#define IDC_BTN_USR_REGRESAR            1123
 
 
 //======================

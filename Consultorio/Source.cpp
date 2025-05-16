@@ -1,10 +1,36 @@
 #pragma once
+
 #include "data.h"
-#include "resource.h"
 HINSTANCE hInst;
+
+#include "win_login.cpp"
+#include "win_menu.cpp"
+
+UserList user_list;
+
+void GenerateData() {
+    user_list.clear();
+    user_list.saveToFile();
+    user_list.addUser("danielmtz", "Daniel", "Martinez", "Barba", "danielmtz@clinic.com", "1234", DateToString(16, 05, 2025));
+    user_list.saveToFile();
+    user_list.loadFromFile();
+    return;
+}
+
+void loadData() {
+    user_list.loadFromFile();
+    return;
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
     hInst = hInstance;
-    DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, WindowProcLogin);
+
+    // Load database
+   // GenerateData();
+    loadData();
+
+    // Launch LogIn window
+    DialogBox(hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
+
     return 0;
 }

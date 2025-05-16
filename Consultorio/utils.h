@@ -9,6 +9,26 @@
 #include <vector>
 
 
+// Converts day, month, year to "DD:MM:YYYY" string
+inline std::string DateToString(int day, int month, int year) {
+    char buffer[11];
+    snprintf(buffer, sizeof(buffer), "%02d-%02d-%04d", day, month, year);
+    return std::string(buffer);
+}
+
+// Parses "DD:MM:YYYY" string to day, month, year integers
+inline bool StringToDate(const std::string& dateStr, int& day, int& month, int& year) {
+    if (sscanf_s(dateStr.c_str(), "%2d-%2d-%4d", &day, &month, &year) == 3) {
+        return true;
+    }
+    return false;
+}
+
+// Helper function to check if a string is empty (after trimming spaces)
+inline bool IsEmpty(const std::string& str) {
+	return str.find_first_not_of(" \t\n\r") == std::string::npos;
+}
+
 inline void writeString(std::ofstream& out, const std::string& str) {
 	size_t length = str.size();
 	out.write(reinterpret_cast<const char*>(&length), sizeof(length));
