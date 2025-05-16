@@ -134,7 +134,9 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="utils.h" />
     <ClCompile Include="win_login.cpp" />
+    <ClCompile Include="win_medic.cpp" />
     <ClCompile Include="win_menu.cpp" />
+    <ClCompile Include="win_patient.cpp" />
     <ClCompile Include="win_signup.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,8 @@ HINSTANCE hInst;
 
 #include "win_login.cpp"
 #include "win_menu.cpp"
+#include "win_medic.cpp"
+#include "win_patient.cpp"
 
 UserList user_list;
 
@@ -30,7 +32,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     loadData();
 
     // Launch LogIn window
-    DialogBox(hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
+    DialogBox(hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
 
     return 0;
 }
