@@ -38,7 +38,7 @@
     <ClCompile Include="win_rep_medicos2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source1.cpp">
+    <ClCompile Include="PARAPRUEBAS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
