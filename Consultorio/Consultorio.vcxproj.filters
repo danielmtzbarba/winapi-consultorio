@@ -32,6 +32,10 @@
     <ClCompile Include="win_login.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="win_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win_signup.cpp">
     <ClCompile Include="win_rep_citas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
