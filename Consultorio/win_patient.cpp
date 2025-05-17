@@ -3,11 +3,14 @@
 inline BOOL AddPatient(HWND hDlg) {
 	// Array of IDC field IDs and corresponding variable pointers
 	const int idcFields[] = {
-		IDC_TXT_USR_AP_PATERNO,
-		IDC_TXT_USR_AP_MATERNO,
-		IDC_TXT_USR_NOMBRE,
-		IDC_TXT_USR_PASS,
-		IDC_TXT_USR_CEDULA
+		IDC_TXT_PAC_ID,
+		IDC_TXT_PAC_NOMBRE,
+		IDC_TXT_PAC_AP_PATERNO,
+		IDC_TXT_PAC_AP_MATERNO,
+		IDC_TXT_PAC_CORREO,
+		IDC_TXT_PAC_TELEFONO,
+		IDC_CBX_PAC_GENERO,
+		IDC_TXT_PAC_EDAD,
 	};
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
@@ -22,19 +25,20 @@ inline BOOL AddPatient(HWND hDlg) {
 	}
 
         // Assign values to variables for clarity
-        std::string lname1 = fieldValues[0];
-        std::string lname2 = fieldValues[1];
-        std::string fname = fieldValues[2];
-        std::string password = fieldValues[3];
-        std::string id = fieldValues[4];
+        std::string id = fieldValues[0];
+        std::string fname = fieldValues[1];
+        std::string lname1 = fieldValues[2];
+        std::string lname2 = fieldValues[3];
 
-        std::string email, date; // If needed, add their IDC fields to the array above
+        std::string email = fieldValues[4];
+        std::string phone = fieldValues[5];
+        std::string gender = fieldValues[6];
+        std::string age = fieldValues[7];
 
-        user_list.addUser(id, fname, lname1, lname2, email, password, date);
-        user_list.saveToFile();
+        AppData::Instance().patient_list.addPatient(id, fname, lname1, lname2, email, phone, gender, age, AppData::Instance().userId);
         return TRUE;
-    }
-
+ }
+ 
 
 inline INT_PTR CALLBACK WindowProcPatient(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 
@@ -60,7 +64,7 @@ inline INT_PTR CALLBACK WindowProcPatient(HWND hDlg, UINT message, WPARAM wParam
 
         case IDC_BTN_MED_REGRESAR:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
             return TRUE;
         }
         break;

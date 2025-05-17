@@ -21,7 +21,8 @@ inline bool Login(HWND hDlg) {
 	std::string id = fieldValues[0];
 	std::string password = fieldValues[1];
 
-	if (user_list.UserLoginById(id, password)){
+	if (AppData::Instance().user_list.UserLoginById(id, password)){
+        AppData::Instance().userId = id;
         return TRUE;
 
 	}
@@ -45,13 +46,13 @@ inline INT_PTR CALLBACK WindowProcLogin(HWND hDlg, UINT message, WPARAM wParam, 
             success = Login(hDlg);
             if (success) {
 				EndDialog(hDlg, 0);
-				DialogBox(hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
+				DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
             }
             return TRUE;
 
         case IDC_BTN_LOGIN_REGISTRAR:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_CREACION_USUARIO), NULL, WindowProcSignUp);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_CREACION_USUARIO), NULL, WindowProcSignUp);
             return TRUE;
         }
         break;

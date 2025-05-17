@@ -69,6 +69,7 @@ public:
         const std::string& userid) {
         MedicNode* newNode = new MedicNode(id, fname, lname1, lname2, email, phone, spec, userid);
         append(newNode);
+        saveToFile();
     }
 
     bool updateMedicById(const std::string& id,
@@ -221,5 +222,3 @@ public:
         }
     }
 };
-
-extern MedicList medic_list;

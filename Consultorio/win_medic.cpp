@@ -2,15 +2,17 @@
 
 inline BOOL AddMedic(HWND hDlg) {
 	// Array of IDC field IDs and corresponding variable pointers
+
 	const int idcFields[] = {
 		IDC_TXT_MED_CEDULA,
 		IDC_TXT_MED_NOMBRE,
-		IDC_TXT_MED_PATERNO,
-		IDC_TXT_MED_MATERNO,
+		IDC_TXT_MED_AP_PATERNO,
+		IDC_TXT_MED_AP_MATERNO,
 		IDC_TXT_MED_CORREO,
 		IDC_TXT_MED_TELEFONO,
 		IDC_CBX_MED_ESPECIAL,
 	};
+
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
 
@@ -32,11 +34,7 @@ inline BOOL AddMedic(HWND hDlg) {
         std::string phone = fieldValues[5];
         std::string spec = fieldValues[6];
 
-
-        std::string email, date; // If needed, add their IDC fields to the array above
-
-        medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, "Treviño");
-        medic_list.saveToFile();
+        AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
         return TRUE;
     }
 
@@ -65,7 +63,7 @@ inline INT_PTR CALLBACK WindowProcMedic(HWND hDlg, UINT message, WPARAM wParam, 
 
         case IDC_BTN_MED_REGRESAR:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
             return TRUE;
         }
         break;
