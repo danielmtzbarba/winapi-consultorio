@@ -36,6 +36,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win_signup.cpp">
+    <ClCompile Include="win_rep_citas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win_rep_medicos2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

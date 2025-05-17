@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by windows.rc
+// Archivo de inclusión generado de Microsoft Visual C++.
+// Usado por windows.rc
 //
 #define IDD_CREACION_USUARIO            3
 #define IDR_ACCELERATOR1                101
@@ -23,6 +23,7 @@
 #define IDD_DIALOG8                     118
 #define IDD_REPORTE_CITAS               120
 #define IDD_DIALOG9                     120
+#define IDD_REPORTES_SELEC              122
 #define IDC_TXT_ESP_NOMBRE              1001
 #define IDC_TXT_REPMED_MEDICO           1002
 #define IDC_TXT_USR_AP_MATERNO          1003
@@ -180,14 +181,17 @@
 #define IDC_LBL_REPMED_FECHA_INI        1137
 #define IDC_LBL_REPMED_MEDICO           1138
 #define IDC_LBL_REPMED_FECHA_FIN        1139
+#define IDC_BTN_RPT_MEDICOS             1140
+#define IDC_BUTTON2                     1141
+#define IDC_BTN_RPT_CITAS               1141
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        122
+#define _APS_NEXT_RESOURCE_VALUE        124
 #define _APS_NEXT_COMMAND_VALUE         40002
-#define _APS_NEXT_CONTROL_VALUE         1140
+#define _APS_NEXT_CONTROL_VALUE         1141
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
