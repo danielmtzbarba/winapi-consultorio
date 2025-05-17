@@ -21,6 +21,7 @@ void GenerateData() {
 
 void loadData() {
     user_list.loadFromFile();
+    medic_list.loadFromFile();
     return;
 }
 

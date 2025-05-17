@@ -142,6 +142,7 @@
     <ClCompile Include="win_rep_medicos2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="medics.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="users.h" />

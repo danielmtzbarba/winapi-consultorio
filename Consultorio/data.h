@@ -1,6 +1,7 @@
 #pragma once
 
 #include "users.h"
+#include "medics.h"
 #include "resources.h"
 
 extern HINSTANCE hInst;

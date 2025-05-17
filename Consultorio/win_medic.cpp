@@ -3,11 +3,13 @@
 inline BOOL AddMedic(HWND hDlg) {
 	// Array of IDC field IDs and corresponding variable pointers
 	const int idcFields[] = {
-		IDC_TXT_USR_AP_PATERNO,
-		IDC_TXT_USR_AP_MATERNO,
-		IDC_TXT_USR_NOMBRE,
-		IDC_TXT_USR_PASS,
-		IDC_TXT_USR_CEDULA
+		IDC_TXT_MED_CEDULA,
+		IDC_TXT_MED_NOMBRE,
+		IDC_TXT_MED_PATERNO,
+		IDC_TXT_MED_MATERNO,
+		IDC_TXT_MED_CORREO,
+		IDC_TXT_MED_TELEFONO,
+		IDC_CBX_MED_ESPECIAL,
 	};
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
@@ -22,16 +24,19 @@ inline BOOL AddMedic(HWND hDlg) {
 	}
 
         // Assign values to variables for clarity
-        std::string lname1 = fieldValues[0];
-        std::string lname2 = fieldValues[1];
-        std::string fname = fieldValues[2];
-        std::string password = fieldValues[3];
-        std::string id = fieldValues[4];
+        std::string id = fieldValues[0];
+        std::string lname1 = fieldValues[1];
+        std::string lname2 = fieldValues[2];
+        std::string fname = fieldValues[3];
+        std::string email = fieldValues[4];
+        std::string phone = fieldValues[5];
+        std::string spec = fieldValues[6];
+
 
         std::string email, date; // If needed, add their IDC fields to the array above
 
-        user_list.addUser(id, fname, lname1, lname2, email, password, date);
-        user_list.saveToFile();
+        medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, "Treviño");
+        medic_list.saveToFile();
         return TRUE;
     }
 
