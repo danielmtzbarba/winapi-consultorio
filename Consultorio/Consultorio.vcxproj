@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClCompile Include="data.h" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Source1.cpp" />
     <ClCompile Include="utils.h" />
     <ClCompile Include="win_login.cpp" />
     <ClCompile Include="win_medic.cpp" />
