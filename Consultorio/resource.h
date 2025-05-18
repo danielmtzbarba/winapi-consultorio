@@ -62,7 +62,9 @@
 #define IDC_TXT_HORA_INICIO_DOM         1017
 #define IDC_BTN_CIT_REGRESAR            1017
 #define IDC_TXT_HORA_FIN_DOM            1018
+#define IDC_CBX_CIT_PACIENTE2           1018
 #define IDC_BTN_LIMPIAR                 1019
+#define IDC_CBX_CIT_PACIENTE3           1019
 #define IDC_BTN_CERRAR                  1020
 #define IDC_TXT_CANTIDAD                1021
 #define IDC_BTN_REGRESAR                1022
@@ -105,7 +107,9 @@
 #define IDC_LBL_CONSENUSO               1063
 #define IDC_BTN_GUARDAR                 1064
 #define IDC_BTN_MENU_MEDICOS            1065
+#define IDC_BTN_CON_BUSCAR              1065
 #define IDC_BTN_MENU_CONSULTORIOS       1066
+#define IDC_LBL_CONSENUSO2              1066
 #define IDC_BTN_MENU_ESPECIALIDAD       1067
 #define IDC_BTN_MENU_PACIENTES          1068
 #define IDC_BTN_MENU_REPORTES           1069
@@ -119,6 +123,8 @@
 #define IDC_TXT_MED_NOMBRE              1077
 #define IDC_TXT_MED_CEDULA              1078
 #define IDC_TXT_MED_CORREO              1079
+#define IDC_TXT_MED_CEDULA2             1079
+#define IDC_TXT_CON_ESP                 1079
 #define IDC_BTN_MED_AGREGAR             1080
 #define IDC_BTN_MED_MODIFICAR           1081
 #define IDC_BTN_MED_ELIMINAR            1082
@@ -156,12 +162,17 @@
 #define IDC_TXT_CIT_DIAGNOSTICO         1105
 #define IDC_BTN_CIT_RESERVAR            1106
 #define IDC_BTN_CIT_CONFIRMAR           1107
+#define IDC_LBL_CIT_ESTATUS4            1107
 #define IDC_BTN_CIT_CANCELAR            1108
 #define IDC_BTN_CIT_REG_DIAGNOSTICO     1109
 #define IDC_LBL_LOGIN_CEDULA            1110
+#define IDC_LBL_CIT_ESTATUS2            1110
 #define IDC_LBL_LOGIN_PASS              1111
+#define IDC_LBL_CIT_ESTATUS3            1111
 #define IDC_TXT_LOGIN_PASS              1112
+#define IDC_LBL_CIT_PACIENTE2           1112
 #define IDC_BTN_LOGIN_ENTRAR            1113
+#define IDC_LBL_CIT_PACIENTE3           1113
 #define IDC_BTN_LOGIN_REGISTRAR         1114
 #define IDC_LBL_USR_NOMBRE              1115
 #define IDC_LBL_USR_AP_PATERNO          1116
@@ -177,6 +188,7 @@
 #define IDC_BTN_ESP_AGREGAR             1124
 #define IDC_BTN_ESP_REGRESAR            1125
 #define IDC_LBL_REP_ESP                 1126
+#define IDC_LBL_ESP_DISPONIBLES2        1126
 #define IDC_LBL_REP_FECHA_INI           1127
 #define IDC_LBL_REP_FECHA_FIN           1128
 #define IDC_TXT_REP_FECHA_INI           1129
@@ -196,6 +208,8 @@
 #define IDC_BUTTON1                     1142
 #define IDC_LIST1                       1143
 #define IDC_TXT_ESP                     1144
+#define IDC_DATETIMEPICKER2             1145
+#define IDC_TXT_CON_CEDULA              1146
 
 // Next default values for new objects
 // 
@@ -203,7 +217,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        124
 #define _APS_NEXT_COMMAND_VALUE         40002
-#define _APS_NEXT_CONTROL_VALUE         1145
+#define _APS_NEXT_CONTROL_VALUE         1147
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
