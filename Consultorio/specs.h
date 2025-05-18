@@ -120,16 +120,16 @@ public:
 	// Creates 10 sample specialties and saves them to file
 	void createSampleSpecialties() {
 		clear();
-		addSpec("SPC001", "Cardiology", "admin");
-		addSpec("SPC002", "Dermatology", "admin");
-		addSpec("SPC003", "Neurology", "admin");
-		addSpec("SPC004", "Pediatrics", "admin");
-		addSpec("SPC005", "Oncology", "admin");
-		addSpec("SPC006", "Orthopedics", "admin");
-		addSpec("SPC007", "Psychiatry", "admin");
-		addSpec("SPC008", "Radiology", "admin");
-		addSpec("SPC009", "Urology", "admin");
-		addSpec("SPC010", "Gastroenterology", "admin");
+		addSpec("Cardiology", "Cardiology", "admin");
+		addSpec("Dermatology", "Dermatology", "admin");
+		addSpec("Neurology", "Neurology", "admin");
+		addSpec("Pediatrics", "Pediatrics", "admin");
+		addSpec("Oncology", "Oncology", "admin");
+		addSpec("Orthopedics", "Orthopedics", "admin");
+		addSpec("Psychiatry", "Psychiatry", "admin");
+		addSpec("Radiology", "Radiology", "admin");
+		addSpec("Urology", "Urology", "admin");
+		addSpec("Gastroenterology", "Gastroenterology", "admin");
 	}
 
     std::vector<SpecNode*> extractToVector() {
