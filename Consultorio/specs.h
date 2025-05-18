@@ -67,6 +67,7 @@ public:
                 else tail = current->prev;
 
                 delete current;
+                saveToFile();
                 return true;
             }
             current = current->next;

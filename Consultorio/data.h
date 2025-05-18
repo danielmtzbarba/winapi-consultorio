@@ -1,17 +1,19 @@
 #pragma once
 
 #include "resources.h"
+
 #include "specs.h"
 #include "users.h"
 #include "medics.h"
 #include "patients.h"
-
 
 extern INT_PTR CALLBACK WindowProcLogin(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcSignUp(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcMenu(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcMedic(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcPatient(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcSpec(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcRooms(HWND, UINT, WPARAM, LPARAM);
 
 // Global AppData singleton
 class AppData {
@@ -84,6 +86,17 @@ inline void FillSpecialtyComboBox(HWND hCombo) {
     while (current) {
         std::wstring wname = StringToWString(current->name); // Use the utility!
         SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)wname.c_str());
+        current = current->next;
+    }
+}
+
+inline void FillSpecialtyListBox(HWND hList) {
+    SendMessage(hList, LB_RESETCONTENT, 0, 0);
+
+    SpecNode* current = AppData::Instance().spec_list.head;
+    while (current) {
+        std::wstring wname = StringToWString(current->name); // Use the utility!
+        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)wname.c_str());
         current = current->next;
     }
 }
