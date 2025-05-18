@@ -101,7 +101,8 @@ public:
             return;
         }
         clear(); // make sure list is empty
-
+        
+        int count = 0;
         while (inFile.peek() != EOF) {
             std::string id = readString(inFile);
             std::string name = readString(inFile);
@@ -109,10 +110,26 @@ public:
 
             SpecNode* newNode = new SpecNode(id, name, userid);
             append(newNode);
+            count++;
         }
 
         inFile.close();
     }
+
+	// Creates 10 sample specialties and saves them to file
+	void createSampleSpecialties() {
+		clear();
+		addSpec("SPC001", "Cardiology", "admin");
+		addSpec("SPC002", "Dermatology", "admin");
+		addSpec("SPC003", "Neurology", "admin");
+		addSpec("SPC004", "Pediatrics", "admin");
+		addSpec("SPC005", "Oncology", "admin");
+		addSpec("SPC006", "Orthopedics", "admin");
+		addSpec("SPC007", "Psychiatry", "admin");
+		addSpec("SPC008", "Radiology", "admin");
+		addSpec("SPC009", "Urology", "admin");
+		addSpec("SPC010", "Gastroenterology", "admin");
+	}
 
     std::vector<SpecNode*> extractToVector() {
         std::vector<SpecNode*> nodes;
@@ -122,5 +139,14 @@ public:
             current = current->next;
         }
         return nodes;
+    }
+
+    void printList() const {
+        SpecNode* current = head;
+        while (current) {
+            std::ofstream log("log.txt", std::ios::app);
+            log << "ID: " << current->name << "\n";
+            current = current->next;
+        }
     }
 };

@@ -16,13 +16,14 @@ void GenerateData() {
     return;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     AppData::Instance().hInst = hInstance;
 
-    // Load database
-   // GenerateData();
+    // Ensure the database is loaded before showing any dialogs
+    AppData::Instance().loadDatabase();
 
-    // Launch LogIn window
+    // Now launch the dialog
     DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
 
     return 0;

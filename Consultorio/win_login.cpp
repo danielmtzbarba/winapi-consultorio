@@ -36,6 +36,7 @@ inline bool Login(HWND hDlg) {
 inline INT_PTR CALLBACK WindowProcLogin(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
     case WM_INITDIALOG:
+        AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);
         return TRUE;
 

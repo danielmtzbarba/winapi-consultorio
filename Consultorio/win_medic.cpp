@@ -1,6 +1,6 @@
 #include "data.h"
 
-inline BOOL AddMedic(HWND hDlg) {
+inline BOOL AddMedic(bool update) {
 	// Array of IDC field IDs and corresponding variable pointers
 
 	const int idcFields[] = {
@@ -18,9 +18,8 @@ inline BOOL AddMedic(HWND hDlg) {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(hDlg, idcFields[i]);
+        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
-
 			return FALSE;
 		}
 	}
@@ -33,24 +32,87 @@ inline BOOL AddMedic(HWND hDlg) {
         std::string email = fieldValues[4];
         std::string phone = fieldValues[5];
         std::string spec = fieldValues[6];
+        
+        if (update) {
+            AppData::Instance().medic_list.updateMedicById(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
+        }
+        else {
+            AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
+        }
 
-        AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
         return TRUE;
     }
 
+inline void ClearMedicFields() {
+    SetTextBox(IDC_TXT_MED_CEDULA, "");
+    SetTextBox(IDC_TXT_MED_NOMBRE, "");
+    SetTextBox(IDC_TXT_MED_AP_PATERNO, "");
+    SetTextBox(IDC_TXT_MED_AP_MATERNO, "");
+    SetTextBox(IDC_TXT_MED_CORREO, "");
+    SetTextBox(IDC_TXT_MED_TELEFONO, "");
+    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_MED_ESPECIAL);
+    if (hCombo) {
+        SendMessage(hCombo, CB_SETCURSEL, -1, 0); // Deselect any selection
+    }
+}
+
+// Helper to set a text field
+inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
+    std::wstring wvalue = StringToWString(value);
+    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
+}
+
+// Helper to select a value in a combobox by string
+inline void SetComboBoxByString(int id, const std::string& value) {
+    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, id);
+    std::wstring wvalue = StringToWString(value);
+    SendMessage(hCombo, CB_SELECTSTRING, -1, (LPARAM)wvalue.c_str());
+}
+
+inline void removeMedic() {
+    std::string id;
+    id = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_MED_CEDULA);
+    bool isDeleted = AppData::Instance().medic_list.removeMedicById(id);
+    ClearMedicFields();
+    if (isDeleted) {
+	    MessageBox(AppData::Instance().activeWindow, L"Registro eliminado!", L"Info", MB_OK);
+    }
+}
+
+inline void searchMedic() {
+    std::string id;
+    id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_MED_CEDULA);
+    MedicNode* found = AppData::Instance().medic_list.searchMedic(id);
+    if (!found) {
+        ClearMedicFields();
+		MessageBox(AppData::Instance().activeWindow, L"Cedula no registrada!", L"Error", MB_OK | MB_ICONERROR);
+        return;
+    }
+    SetTextBox(IDC_TXT_MED_CEDULA, found->id);
+    SetTextBox(IDC_TXT_MED_NOMBRE, found->fname);
+    SetTextBox(IDC_TXT_MED_AP_PATERNO, found->lname1);
+    SetTextBox(IDC_TXT_MED_AP_MATERNO, found->lname2);
+    SetTextBox(IDC_TXT_MED_CORREO, found->email);
+    SetTextBox(IDC_TXT_MED_TELEFONO, found->phone);
+    SetComboBoxByString(IDC_CBX_MED_ESPECIAL, found->spec);
+
+}
 
 inline INT_PTR CALLBACK WindowProcMedic(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
-
     switch (message) {
+    HWND hCombo;
     case WM_INITDIALOG:
+        AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);
+		hCombo = GetDlgItem(hDlg, IDC_CBX_MED_ESPECIAL);
+        FillSpecialtyComboBox(hCombo);
         return TRUE;
 
     case WM_COMMAND:
+        bool success;
         switch (LOWORD(wParam)) {
         case IDC_BTN_MED_AGREGAR:
-            bool success;
-            success = AddMedic(hDlg);
+            success = AddMedic(false);
             if (success) {
 	            MessageBox(hDlg, L"Médico registrado!", L"Info", MB_OK);
             }
@@ -65,11 +127,28 @@ inline INT_PTR CALLBACK WindowProcMedic(HWND hDlg, UINT message, WPARAM wParam, 
             EndDialog(hDlg, 0);
             DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_MENU_PRINCIPAL), NULL, WindowProcMenu);
             return TRUE;
+
+        case IDC_BTN_MED_MODIFICAR:
+            success = AddMedic(true);
+            if (success) {
+	            MessageBox(hDlg, L"Registro modificado!", L"Info", MB_OK);
+            }
+            return TRUE;
+
+        case IDC_BTN_MED_CONSULTAR:
+            searchMedic();
+            return TRUE;
+
+        case IDC_BTN_MED_ELIMINAR:
+            removeMedic();
+            return TRUE;
         }
         break;
+
     case WM_CLOSE:
         EndDialog(hDlg, 0);
         return TRUE;
     }
+
     return FALSE;
 }

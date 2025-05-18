@@ -44,6 +44,7 @@ inline INT_PTR CALLBACK WindowProcPatient(HWND hDlg, UINT message, WPARAM wParam
 
     switch (message) {
     case WM_INITDIALOG:
+        AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);
         return TRUE;
 

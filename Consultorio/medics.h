@@ -96,6 +96,19 @@ public:
         }
         return false; // not found
     }
+    
+    MedicNode* searchMedic(const std::string id) {
+        MedicNode* result(nullptr);
+        MedicNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                result = current;
+                return result;
+            }
+            current = current->next;
+        }
+        return result; // not found
+    }
 
     bool removeMedicById(const std::string& id) {
         MedicNode* current = head;
@@ -207,6 +220,21 @@ public:
             quickSort(low, pivot->prev);
             quickSort(pivot->next, high);
         }
+    }
+
+    // Creates 10 sample medics and saves them to file
+    void createSampleMedics() {
+        clear();
+        addMedic("MED001", "Ana", "Gomez", "Lopez", "ana.gomez@clinic.com", "555-1001", "Cardiology", "admin");
+        addMedic("MED002", "Luis", "Martinez", "Perez", "luis.martinez@clinic.com", "555-1002", "Dermatology", "admin");
+        addMedic("MED003", "Maria", "Fernandez", "Ruiz", "maria.fernandez@clinic.com", "555-1003", "Neurology", "admin");
+        addMedic("MED004", "Carlos", "Sanchez", "Diaz", "carlos.sanchez@clinic.com", "555-1004", "Pediatrics", "admin");
+        addMedic("MED005", "Elena", "Torres", "Vega", "elena.torres@clinic.com", "555-1005", "Oncology", "admin");
+        addMedic("MED006", "Jorge", "Ramirez", "Castro", "jorge.ramirez@clinic.com", "555-1006", "Orthopedics", "admin");
+        addMedic("MED007", "Lucia", "Morales", "Navarro", "lucia.morales@clinic.com", "555-1007", "Psychiatry", "admin");
+        addMedic("MED008", "Miguel", "Alvarez", "Mendez", "miguel.alvarez@clinic.com", "555-1008", "Radiology", "admin");
+        addMedic("MED009", "Sofia", "Herrera", "Flores", "sofia.herrera@clinic.com", "555-1009", "Urology", "admin");
+        addMedic("MED010", "Pedro", "Jimenez", "Ortega", "pedro.jimenez@clinic.com", "555-1010", "Gastroenterology", "admin");
     }
 
     void printList() const {
