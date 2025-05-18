@@ -140,6 +140,8 @@
 #define IDC_BTN_PAC_REGRESAR            1097
 #define IDC_BTN_PAC_AGREGAR             1009
 
+#define IDC_TXT_PAC_AP_MATERNO          1100
+#define IDC_TXT_PAC_AP_PATERNO          1098
 
 
 //=======================
@@ -196,6 +198,9 @@
 #define IDC_TXT_MED_CEDULA              1078
 #define IDC_TXT_MED_CORREO              1079
 #define IDC_TXT_MED_TELEFONO            1008
+
+#define IDC_TXT_MED_AP_PATERNO          1084
+#define IDC_TXT_MED_AP_MATERNO          1086
 
 //COMBOBOX
 #define IDC_CBX_MED_ESPECIAL            1027

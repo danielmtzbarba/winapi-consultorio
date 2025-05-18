@@ -8,6 +8,38 @@
 #include <stdlib.h>
 #include <vector>
 
+// Data types
+inline std::wstring StringToWString(const std::string& str) {
+	int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+	std::wstring wstrTo(size_needed, 0);
+	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wstrTo[0], size_needed);
+	return wstrTo;
+}
+
+inline char* wcharToChar(const wchar_t* wstr) {
+    // Calculate the size of the converted string (in bytes)
+    int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
+    if (len == 0) {
+        return NULL;  // Conversion failed
+    }
+
+    // Allocate memory for the converted string
+    char* str = (char*)malloc(len * sizeof(char));
+    if (str == NULL) {
+        return NULL;  // Memory allocation failed
+    }
+
+    // Perform the conversion
+    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
+
+    return str;
+}
+
+// Helper to set a text field
+inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
+    std::wstring wvalue = StringToWString(value);
+    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
+}
 
 // Converts day, month, year to "DD:MM:YYYY" string
 inline std::string DateToString(int day, int month, int year) {
@@ -43,31 +75,7 @@ inline std::string readString(std::ifstream& in) {
 	return str;
 }
 
-inline std::wstring StringToWString(const std::string& str) {
-	int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
-	std::wstring wstrTo(size_needed, 0);
-	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wstrTo[0], size_needed);
-	return wstrTo;
-}
 
-inline char* wcharToChar(const wchar_t* wstr) {
-    // Calculate the size of the converted string (in bytes)
-    int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
-    if (len == 0) {
-        return NULL;  // Conversion failed
-    }
-
-    // Allocate memory for the converted string
-    char* str = (char*)malloc(len * sizeof(char));
-    if (str == NULL) {
-        return NULL;  // Memory allocation failed
-    }
-
-    // Perform the conversion
-    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
-
-    return str;
-}
 
 inline std::string ReadTextBox(HWND hwnd, int ID_TEXTBOX) {
         wchar_t buffer[256];

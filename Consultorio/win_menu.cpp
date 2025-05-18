@@ -3,6 +3,7 @@
 inline INT_PTR CALLBACK WindowProcMenu(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
     case WM_INITDIALOG:
+        AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);
         return TRUE;
 
@@ -10,15 +11,15 @@ inline INT_PTR CALLBACK WindowProcMenu(HWND hDlg, UINT message, WPARAM wParam, L
         switch (LOWORD(wParam)) {
         case IDC_BTN_MENU_LOGOUT:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
             return TRUE;
         case IDC_BTN_MENU_MEDICOS:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_GESTION_MEDICOS), NULL, WindowProcMedic);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_GESTION_MEDICOS), NULL, WindowProcMedic);
             return TRUE;
         case IDC_BTN_MENU_PACIENTES:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_DATOS_PACIENTE), NULL, WindowProcPatient);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_DATOS_PACIENTE), NULL, WindowProcPatient);
             return TRUE;
         }
 

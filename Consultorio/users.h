@@ -66,6 +66,7 @@ public:
         const std::string& date) {
         UserNode* newNode = new UserNode(id, fname, lname1, lname2, email, password, date);
         append(newNode);
+        saveToFile();
     }
 
     bool updateUserById(const std::string& id,
@@ -190,5 +191,3 @@ public:
         }
     }
 };
-
-extern UserList user_list;

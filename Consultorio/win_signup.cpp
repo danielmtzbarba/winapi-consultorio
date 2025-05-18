@@ -30,8 +30,7 @@ inline BOOL SignUp(HWND hDlg) {
 
         std::string email, date; // If needed, add their IDC fields to the array above
 
-        user_list.addUser(id, fname, lname1, lname2, email, password, date);
-        user_list.saveToFile();
+        AppData::Instance().user_list.addUser(id, fname, lname1, lname2, email, password, date);
         return TRUE;
     }
 
@@ -40,6 +39,7 @@ inline INT_PTR CALLBACK WindowProcSignUp(HWND hDlg, UINT message, WPARAM wParam,
 
     switch (message) {
     case WM_INITDIALOG:
+        AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);
         return TRUE;
 
@@ -60,7 +60,7 @@ inline INT_PTR CALLBACK WindowProcSignUp(HWND hDlg, UINT message, WPARAM wParam,
 
         case IDC_BTN_USR_REGRESAR:
             EndDialog(hDlg, 0);
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
             return TRUE;
         }
         break;

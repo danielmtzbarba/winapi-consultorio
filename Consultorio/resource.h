@@ -1,6 +1,6 @@
-//{{NO_DEPENDENCIES}}
-// Archivo de inclusión generado de Microsoft Visual C++.
-// Usado por windows.rc
+ï»¿//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by windows.rc
 //
 #define IDD_CREACION_USUARIO            3
 #define IDR_ACCELERATOR1                101
@@ -123,9 +123,13 @@
 #define IDC_BTN_MED_MODIFICAR           1081
 #define IDC_BTN_MED_ELIMINAR            1082
 #define IDC_LBL_PAC_ID                  1083
+#define IDC_LBL_MED_AP_PATERNO          1083
 #define IDC_LBL_PAC_NOMBRE              1084
+#define IDC_TXT_MED_AP_PATERNO          1084
 #define IDC_LBL_PAC_CORREO              1085
+#define IDC_LBL_MED_AP_MATERNO          1085
 #define IDC_LBL_PAC_TELEFONO            1086
+#define IDC_TXT_MED_AP_MATERNO          1086
 #define IDC_LBL_PAC_GENERO              1087
 #define IDC_LBL_PAC_EDAD                1088
 #define IDC_TXT_PAC_ID                  1089
@@ -138,9 +142,14 @@
 #define IDC_BTN_PAC_MODIFICAR           1096
 #define IDC_BTN_PAC_REGRESAR            1097
 #define IDC_LBL_CIT_ESPECIALIDAD        1098
+#define IDC_TXT_PAC_NOMBRE2             1098
+#define IDC_TXT_PAC_AP_PATERNO          1098
 #define IDC_LBL_CIT_MEDICO              1099
+#define IDC_LBL_PAC_AP_PATERNO          1099
 #define IDC_LBL_CIT_CONSULTORIO         1100
+#define IDC_TXT_PAC_AP_MATERNO          1100
 #define IDC_LBL_CIT_FECHA               1101
+#define IDC_LBL_PAC_AP_MATERNO          1101
 #define IDC_LBL_CIT_HORA                1102
 #define IDC_LBL_CIT_PACIENTE            1103
 #define IDC_LBL_CIT_ESTATUS             1104
@@ -182,8 +191,9 @@
 #define IDC_LBL_REPMED_MEDICO           1138
 #define IDC_LBL_REPMED_FECHA_FIN        1139
 #define IDC_BTN_RPT_MEDICOS             1140
-#define IDC_BUTTON2                     1141
 #define IDC_BTN_RPT_CITAS               1141
+#define IDC_TXT_ESP_EDICION             1141
+#define IDC_BUTTON1                     1142
 
 // Next default values for new objects
 // 
@@ -191,7 +201,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        124
 #define _APS_NEXT_COMMAND_VALUE         40002
-#define _APS_NEXT_CONTROL_VALUE         1141
+#define _APS_NEXT_CONTROL_VALUE         1143
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

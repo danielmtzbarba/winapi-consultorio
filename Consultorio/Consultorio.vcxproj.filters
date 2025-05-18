@@ -40,6 +40,15 @@
     <ClInclude Include="users.h">
       <Filter>DoublyLinkedLists</Filter>
     </ClInclude>
+    <ClInclude Include="medics.h">
+      <Filter>DoublyLinkedLists</Filter>
+    </ClInclude>
+    <ClInclude Include="patients.h">
+      <Filter>DoublyLinkedLists</Filter>
+    </ClInclude>
+    <ClInclude Include="specs.h">
+      <Filter>DoublyLinkedLists</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window Logic">
