@@ -35,12 +35,6 @@ inline char* wcharToChar(const wchar_t* wstr) {
     return str;
 }
 
-// Helper to set a text field
-inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
-    std::wstring wvalue = StringToWString(value);
-    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
-}
-
 // Converts day, month, year to "DD:MM:YYYY" string
 inline std::string DateToString(int day, int month, int year) {
     char buffer[11];
@@ -56,11 +50,7 @@ inline bool StringToDate(const std::string& dateStr, int& day, int& month, int& 
     return false;
 }
 
-// Helper function to check if a string is empty (after trimming spaces)
-inline bool IsEmpty(const std::string& str) {
-	return str.find_first_not_of(" \t\n\r") == std::string::npos;
-}
-
+// Write and Read Strings
 inline void writeString(std::ofstream& out, const std::string& str) {
 	size_t length = str.size();
 	out.write(reinterpret_cast<const char*>(&length), sizeof(length));
@@ -75,8 +65,16 @@ inline std::string readString(std::ifstream& in) {
 	return str;
 }
 
+// Read, Check, Set Boxes
+inline bool IsEmpty(const std::string& str) {
+	return str.find_first_not_of(" \t\n\r") == std::string::npos;
+}
 
-
+// Helper to set a text field
+inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
+    std::wstring wvalue = StringToWString(value);
+    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
+}
 inline std::string ReadTextBox(HWND hwnd, int ID_TEXTBOX) {
         wchar_t buffer[256];
         HWND hwndEdit = GetDlgItem(hwnd, ID_TEXTBOX); 
@@ -85,6 +83,7 @@ inline std::string ReadTextBox(HWND hwnd, int ID_TEXTBOX) {
         return str;
 }
 
+// Windows
 inline void CenterWindow(HWND hwnd) {
     RECT rc;
     GetWindowRect(hwnd, &rc);

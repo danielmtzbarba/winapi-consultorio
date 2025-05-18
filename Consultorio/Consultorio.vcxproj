@@ -137,15 +137,18 @@
     <ClCompile Include="win_medic.cpp" />
     <ClCompile Include="win_menu.cpp" />
     <ClCompile Include="win_patient.cpp" />
+    <ClCompile Include="win_rooms.cpp" />
     <ClCompile Include="win_signup.cpp" />
     <ClCompile Include="win_rep_citas.cpp" />
     <ClCompile Include="win_rep_medicos2.cpp" />
+    <ClCompile Include="win_spec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="medics.h" />
     <ClInclude Include="patients.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resources.h" />
+    <ClInclude Include="rooms.h" />
     <ClInclude Include="specs.h" />
     <ClInclude Include="users.h" />
   </ItemGroup>

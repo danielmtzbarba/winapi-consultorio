@@ -247,6 +247,8 @@
 #define IDC_BTN_ESP_REGRESAR            1125
 #define IDC_BTN_ESP_ELIMINAR            1010
 
+#define IDC_TXT_ESP_EDICION             1141
+#define IDC_TXT_ESP                     1144
 
 
 //=======================
