@@ -42,6 +42,9 @@ public:
         spec_list.loadFromFile();
 
         // Only create samples if the list is empty
+        if (!patient_list.head) {
+            patient_list.createSamplePatients();
+        }
         if (!medic_list.head) {
             medic_list.createSampleMedics();
         }
@@ -89,4 +92,12 @@ inline void FillSpecialtyComboBox(HWND hCombo) {
 inline void SetTextBox(int id, const std::string& value) {
     std::wstring wvalue = StringToWString(value);
     SetWindowTextW(GetDlgItem(AppData::Instance().activeWindow, id), wvalue.c_str());
+}
+
+
+// Helper to select a value in a combobox by string
+inline void SetComboBoxByString(int id, const std::string& value) {
+    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, id);
+    std::wstring wvalue = StringToWString(value);
+    SendMessage(hCombo, CB_SELECTSTRING, -1, (LPARAM)wvalue.c_str());
 }

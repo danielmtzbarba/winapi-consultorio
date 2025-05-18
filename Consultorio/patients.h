@@ -102,6 +102,18 @@ public:
         return false; // not found
     }
 
+    PatientNode* searchPatient(const std::string id) {
+        PatientNode* result(nullptr);
+        PatientNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                result = current;
+                return result;
+            }
+            current = current->next;
+        }
+        return result; // not found
+    }
     bool removePatientById(const std::string& id) {
         PatientNode* current = head;
         while (current) {
@@ -118,6 +130,21 @@ public:
             current = current->next;
         }
         return false; // not found
+    }
+
+    // Creates 10 sample patients and saves them to file
+    void createSamplePatients() {
+        clear();
+        addPatient("PAT001", "Juan", "Perez", "Lopez", "juan.perez@email.com", "555-2001", "M", "30", "admin");
+        addPatient("PAT002", "Maria", "Gomez", "Sanchez", "maria.gomez@email.com", "555-2002", "F", "25", "admin");
+        addPatient("PAT003", "Carlos", "Ramirez", "Torres", "carlos.ramirez@email.com", "555-2003", "M", "40", "admin");
+        addPatient("PAT004", "Ana", "Fernandez", "Diaz", "ana.fernandez@email.com", "555-2004", "F", "35", "admin");
+        addPatient("PAT005", "Luis", "Martinez", "Vega", "luis.martinez@email.com", "555-2005", "M", "28", "admin");
+        addPatient("PAT006", "Sofia", "Castro", "Navarro", "sofia.castro@email.com", "555-2006", "F", "32", "admin");
+        addPatient("PAT007", "Miguel", "Alvarez", "Mendez", "miguel.alvarez@email.com", "555-2007", "M", "45", "admin");
+        addPatient("PAT008", "Lucia", "Herrera", "Flores", "lucia.herrera@email.com", "555-2008", "F", "22", "admin");
+        addPatient("PAT009", "Pedro", "Jimenez", "Ortega", "pedro.jimenez@email.com", "555-2009", "M", "38", "admin");
+        addPatient("PAT010", "Elena", "Morales", "Ruiz", "elena.morales@email.com", "555-2010", "F", "27", "admin");
     }
 
     void saveToFile() const {

@@ -1,5 +1,18 @@
 #include "data.h"
 
+inline void ClearMedicFields() {
+    SetTextBox(IDC_TXT_MED_CEDULA, "");
+    SetTextBox(IDC_TXT_MED_NOMBRE, "");
+    SetTextBox(IDC_TXT_MED_AP_PATERNO, "");
+    SetTextBox(IDC_TXT_MED_AP_MATERNO, "");
+    SetTextBox(IDC_TXT_MED_CORREO, "");
+    SetTextBox(IDC_TXT_MED_TELEFONO, "");
+    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_MED_ESPECIAL);
+    if (hCombo) {
+        SendMessage(hCombo, CB_SETCURSEL, -1, 0); // Deselect any selection
+    }
+}
+
 inline BOOL AddMedic(bool update) {
 	// Array of IDC field IDs and corresponding variable pointers
 
@@ -12,7 +25,6 @@ inline BOOL AddMedic(bool update) {
 		IDC_TXT_MED_TELEFONO,
 		IDC_CBX_MED_ESPECIAL,
 	};
-
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
 
@@ -42,32 +54,6 @@ inline BOOL AddMedic(bool update) {
 
         return TRUE;
     }
-
-inline void ClearMedicFields() {
-    SetTextBox(IDC_TXT_MED_CEDULA, "");
-    SetTextBox(IDC_TXT_MED_NOMBRE, "");
-    SetTextBox(IDC_TXT_MED_AP_PATERNO, "");
-    SetTextBox(IDC_TXT_MED_AP_MATERNO, "");
-    SetTextBox(IDC_TXT_MED_CORREO, "");
-    SetTextBox(IDC_TXT_MED_TELEFONO, "");
-    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_MED_ESPECIAL);
-    if (hCombo) {
-        SendMessage(hCombo, CB_SETCURSEL, -1, 0); // Deselect any selection
-    }
-}
-
-// Helper to set a text field
-inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
-    std::wstring wvalue = StringToWString(value);
-    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
-}
-
-// Helper to select a value in a combobox by string
-inline void SetComboBoxByString(int id, const std::string& value) {
-    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, id);
-    std::wstring wvalue = StringToWString(value);
-    SendMessage(hCombo, CB_SELECTSTRING, -1, (LPARAM)wvalue.c_str());
-}
 
 inline void removeMedic() {
     std::string id;
