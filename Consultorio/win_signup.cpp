@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline BOOL SignUp(HWND hDlg) {
 	// Array of IDC field IDs and corresponding variable pointers
@@ -14,7 +15,7 @@ inline BOOL SignUp(HWND hDlg) {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(hDlg, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 
 			return FALSE;
@@ -40,7 +41,7 @@ inline INT_PTR CALLBACK WindowProcSignUp(HWND hDlg, UINT message, WPARAM wParam,
     switch (message) {
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         return TRUE;
 
     case WM_COMMAND:

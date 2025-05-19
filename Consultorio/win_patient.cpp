@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline void ClearPatientFields() {
     SetTextBox(IDC_TXT_PAC_ID, "");
@@ -16,7 +17,7 @@ inline void ClearPatientFields() {
 
 inline void searchPatient() {
     std::string id;
-    id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_PAC_ID);
+    id =  ReadTextBox(IDC_TXT_PAC_ID);
     PatientNode* found = AppData::Instance().patient_list.searchPatient(id);
     if (!found) {
         ClearPatientFields();
@@ -51,7 +52,7 @@ inline BOOL AddPatient(bool update) {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 
 			return FALSE;
@@ -81,7 +82,7 @@ inline BOOL AddPatient(bool update) {
 
 inline void removePatient() {
     std::string id;
-    id = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_PAC_ID);
+    id = ReadTextBox(IDC_TXT_PAC_ID);
     bool isDeleted = AppData::Instance().patient_list.removePatientById(id);
     ClearPatientFields();
     if (isDeleted) {
@@ -94,7 +95,7 @@ inline INT_PTR CALLBACK WindowProcPatient(HWND hDlg, UINT message, WPARAM wParam
     HWND hCombo;
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         // Get the combo box control by its ID
         hCombo = GetDlgItem(hDlg, IDC_CBX_PAC_GENERO);
         // Add a string to the combo box

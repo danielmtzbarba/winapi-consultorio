@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm> // for std::transform
 #include <commctrl.h>
+#include <tuple>
+#include <ctime>
 
 
 // Data types
@@ -84,6 +86,32 @@ inline bool StringToDate(const std::string& dateStr, int& day, int& month, int& 
     return false;
 }
 
+inline std::tuple<int, int, int> dateStrToIntTuple(const std::string date) {
+    int day = std::stoi(date.substr(0, 2));
+    int month = std::stoi(date.substr(3, 2));
+    int year = std::stoi(date.substr(6, 4));
+    return { year, month, day };
+}
+
+inline std::string getWeekDay(const std::string & fecha) {
+	int dia = std::stoi(fecha.substr(0, 2));
+	int mes = std::stoi(fecha.substr(3, 2));
+	int anio = std::stoi(fecha.substr(6, 4));
+
+	std::tm time_in = {};
+	time_in.tm_mday = dia;
+	time_in.tm_mon = mes - 1;   // tm_mon: 0 = enero
+	time_in.tm_year = anio - 1900; // tm_year: años desde 1900
+
+	std::mktime(&time_in); // Normaliza la estructura y calcula tm_wday
+
+	static const std::vector<std::string> dias = {
+		"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+	};
+
+	return dias[time_in.tm_wday];
+}
+
 // Write and Read Strings
 inline void writeString(std::ofstream& out, const std::string& str) {
 	size_t length = str.size();
@@ -102,34 +130,4 @@ inline std::string readString(std::ifstream& in) {
 // Read, Check, Set Boxes
 inline bool IsEmpty(const std::string& str) {
 	return str.find_first_not_of(" \t\n\r") == std::string::npos;
-}
-
-// Helper to set a text field
-inline void SetTextBox(HWND hDlg, int id, const std::string& value) {
-    std::wstring wvalue = StringToWString(value);
-    SetWindowTextW(GetDlgItem(hDlg, id), wvalue.c_str());
-}
-inline std::string ReadTextBox(HWND hwnd, int ID_TEXTBOX) {
-        wchar_t buffer[256];
-        HWND hwndEdit = GetDlgItem(hwnd, ID_TEXTBOX); 
-        GetWindowTextW(hwndEdit, buffer, sizeof(buffer));
-        std::string str = wcharToChar(buffer);
-        return str;
-}
-
-// Windows
-inline void CenterWindow(HWND hwnd) {
-    RECT rc;
-    GetWindowRect(hwnd, &rc);
-
-    int winWidth = rc.right - rc.left;
-    int winHeight = rc.bottom - rc.top;
-
-    int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-
-    int x = (screenWidth - winWidth) / 2;
-    int y = (screenHeight - winHeight) / 2;
-
-    MoveWindow(hwnd, x, y, winWidth, winHeight, TRUE);
 }

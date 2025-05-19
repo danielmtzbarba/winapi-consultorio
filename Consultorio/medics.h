@@ -110,7 +110,18 @@ public:
         }
         return result; // not found
     }
-
+    std::string getMedicNameById(const std::string id) {
+        std::string name;
+        MedicNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                name = current->lname1 + " " + current->lname2 + " " + current->fname;
+                return name;
+            }
+            current = current->next;
+        }
+        return name; // not found
+    }
     std::vector<std::string> getMedicIdsBySpec(const std::string& spec) const {
         std::vector<std::string> ids;
         MedicNode* current = head;

@@ -305,6 +305,8 @@
 #define IDC_BTN_REPMED_GUARDAR          1008
 
 //FALTA LISTVIEW, ESE LO HARE POR CODIGO SI NO TIENES TIEMPO
+#define ID_LISTVIEW_REPORTE				1200
+#define IDC_DTP_CIT_FECHA2              1014
 
 //botones "basura" no los borres por si acaso
 #define IDR_ACCELERATOR1                101

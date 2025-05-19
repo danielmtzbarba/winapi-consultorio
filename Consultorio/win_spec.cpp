@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline void UpdateSpecFields(HWND hList) {
     SetTextBox(IDC_TXT_ESP_EDICION, "");
@@ -16,8 +17,8 @@ inline void AddRooms(int n, std::string prefix, std::string spec) {
 }
 
 inline BOOL AddSpec(HWND hList) {
-	std::string spec = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_ESP_EDICION);
-    std::string n_str = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_CANTIDAD);
+	std::string spec = ReadTextBox(IDC_TXT_ESP_EDICION);
+    std::string n_str = ReadTextBox(IDC_TXT_CANTIDAD);
     if (IsEmpty(spec) || IsEmpty(n_str)) {
 		return FALSE;
 	}
@@ -31,7 +32,7 @@ inline BOOL AddSpec(HWND hList) {
 }
 
 inline void removeSpec(HWND hList) {
-	std::string spec = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_ESP_EDICION);
+	std::string spec = ReadTextBox(IDC_TXT_ESP_EDICION);
 
     int index = (int)SendMessage(hList, LB_GETCURSEL, 0, 0);
 
@@ -55,7 +56,7 @@ inline INT_PTR CALLBACK WindowProcSpec(HWND hDlg, UINT message, WPARAM wParam, L
     switch (message) {
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         hList = GetDlgItem(hDlg, IDC_TXT_ESP);
         FillSpecialtyListBox(hList);
         return TRUE;
