@@ -45,6 +45,8 @@
 #define IDC_LBL_GUION_DOM               1053
 
 //CAJAS DE EDICION
+
+#define IDC_TXT_CON_ESP                 1079
 #define IDC_TXT_CANTIDAD                1021//CANTIDAD DE CONSULTORIOS
 #define IDC_TXT_HORA_INICIO_LUN         1054
 #define IDC_TXT_HORA_FIN_LUN            1056
@@ -60,18 +62,7 @@
 #define IDC_TXT_HORA_FIN_SAB            1016
 #define IDC_TXT_HORA_INICIO_DOM         1017
 #define IDC_TXT_HORA_FIN_DOM            1018
-
-//CHECKBOXES
-#define IDC_CHK_LUNES                   1033
-#define IDC_CHK_MARTES                  1034
-#define IDC_CHK_MIERCOLES               1035
-#define IDC_CHK_JUEVES                  1036
-#define IDC_CHK_VIERNES                 1037
-#define IDC_CHK_SABADO                  1038
-#define IDC_CHK_DOMINGO                 1039
-
-//SPIN CONTROL
-#define IDC_SPN_CANTIDAD                1032//CANTIDAD DE CONSULTORIOS
+#define IDC_DATETIMEPICKER2             1145
 
 //LISTBOX
 #define IDC_LST_CONSULTORIOS            1062//CANTIDAD DE CONSULTORIOS
@@ -83,6 +74,7 @@
 #define IDC_BTN_CERRAR                  1020//CIERRA VENTANA
 #define IDC_BTN_LIMPIAR                 1019//LIMPIA HORARIOS
 #define IDC_BTN_REGRESAR                1022
+#define IDC_BTN_CON_BUSCAR              1065
 
 
 
@@ -166,8 +158,12 @@
 #define IDC_CBX_CIT_ESTATUS             1016
 #define IDC_CBX_CIT_HORA                1015
 
+#define IDC_CBX_CIT_PACIENTE3           1019
+#define IDC_TXT_CON_CEDULA              1146
+
 //CAJA DE EDICION
 #define IDC_TXT_CIT_DIAGNOSTICO         1105
+#define IDC_TXT_PAC_ID2                 1090
 
 //DATE TIME CONTROL
 #define IDC_DTP_CIT_FECHA               1013
@@ -178,7 +174,7 @@
 #define IDC_BTN_CIT_CONFIRMAR           1107
 #define IDC_BTN_CIT_CANCELAR            1108
 #define IDC_BTN_CIT_REG_DIAGNOSTICO     1109
-
+#define IDC_BTN_CIT_RESERVAR2           1108
 
 
 //=======================
@@ -218,6 +214,10 @@
 //MENU
 //=======================
 #define IDD_MENU_PRINCIPAL              106
+#define IDD_REPORTES_SELEC              122
+
+#define IDD_REPORTE_MEDICOS             114
+#define IDD_REPORTE_CITAS               120
 
 //BOTONES
 #define IDC_BTN_MENU_MEDICOS            1065
@@ -229,6 +229,8 @@
 #define IDC_BTN_MENU_EDITAR_CITA        1014
 #define IDC_BTN_MENU_LOGOUT             1071
 
+#define IDC_BTN_RPT_MEDICOS             1140
+#define IDC_BTN_RPT_CITAS               1141
 
 
 //=======================
@@ -274,6 +276,7 @@
 #define IDC_BTN_REP_REGRESAR            1134
 #define IDC_BTN_REP_GUARDAR             1135
 
+#define IDC_BTN_CIT_BUSCAR              1114
 //FALTA LISTVIEW, ESE LO HARE POR CODIGO SI NO TIENES TIEMPO
 
 //=======================

@@ -90,6 +90,7 @@ public:
                 current->phone = newPhone;
                 current->spec = newSpec;
                 current->userid = newUserid;
+                saveToFile();
                 return true;
             }
             current = current->next;
@@ -97,7 +98,7 @@ public:
         return false; // not found
     }
     
-    MedicNode* searchMedic(const std::string id) {
+    MedicNode* searchMedicById(const std::string id) {
         MedicNode* result(nullptr);
         MedicNode* current = head;
         while (current) {
@@ -108,6 +109,18 @@ public:
             current = current->next;
         }
         return result; // not found
+    }
+
+    std::vector<std::string> getMedicIdsBySpec(const std::string& spec) const {
+        std::vector<std::string> ids;
+        MedicNode* current = head;
+        while (current) {
+            if (current->spec == spec) {
+                ids.push_back(current->id);
+            }
+            current = current->next;
+        }
+        return ids;
     }
 
     bool removeMedicById(const std::string& id) {
@@ -121,6 +134,7 @@ public:
                 else tail = current->prev;
 
                 delete current;
+                saveToFile();
                 return true;
             }
             current = current->next;

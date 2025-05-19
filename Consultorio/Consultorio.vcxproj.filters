@@ -14,12 +14,6 @@
     <ClCompile Include="win_patient.cpp">
       <Filter>Window Logic</Filter>
     </ClCompile>
-    <ClCompile Include="win_rep_citas.cpp">
-      <Filter>Window Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="win_rep_medicos2.cpp">
-      <Filter>Window Logic</Filter>
-    </ClCompile>
     <ClCompile Include="win_signup.cpp">
       <Filter>Window Logic</Filter>
     </ClCompile>
@@ -35,6 +29,20 @@
     <ClCompile Include="win_rooms.cpp">
       <Filter>Window Logic</Filter>
     </ClCompile>
+    <ClCompile Include="win_citas.cpp">
+      <Filter>Window Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="win_reportmenu.cpp">
+      <Filter>Window Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="win_rep_apt.cpp">
+      <Filter>Window Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="win_rep_med.cpp">
+      <Filter>Window Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="win_rep_citas.cpp" />
+    <ClCompile Include="win_rep_medicos2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -56,6 +64,9 @@
       <Filter>DoublyLinkedLists</Filter>
     </ClInclude>
     <ClInclude Include="rooms.h">
+      <Filter>DoublyLinkedLists</Filter>
+    </ClInclude>
+    <ClInclude Include="appointments.h">
       <Filter>DoublyLinkedLists</Filter>
     </ClInclude>
   </ItemGroup>

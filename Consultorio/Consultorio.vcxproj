@@ -133,10 +133,14 @@
     <ClCompile Include="data.h" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="utils.h" />
+    <ClCompile Include="win_citas.cpp" />
     <ClCompile Include="win_login.cpp" />
     <ClCompile Include="win_medic.cpp" />
     <ClCompile Include="win_menu.cpp" />
     <ClCompile Include="win_patient.cpp" />
+    <ClCompile Include="win_reportmenu.cpp" />
+    <ClCompile Include="win_rep_apt.cpp" />
+    <ClCompile Include="win_rep_med.cpp" />
     <ClCompile Include="win_rooms.cpp" />
     <ClCompile Include="win_signup.cpp" />
     <ClCompile Include="win_rep_citas.cpp" />
@@ -144,6 +148,7 @@
     <ClCompile Include="win_spec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="appointments.h" />
     <ClInclude Include="medics.h" />
     <ClInclude Include="patients.h" />
     <ClInclude Include="resource.h" />

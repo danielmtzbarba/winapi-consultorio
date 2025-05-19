@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm> // for std::transform
+#include <commctrl.h>
+
 
 // Data types
 inline std::wstring StringToWString(const std::string& str) {
@@ -16,23 +19,54 @@ inline std::wstring StringToWString(const std::string& str) {
 	return wstrTo;
 }
 
-inline char* wcharToChar(const wchar_t* wstr) {
-    // Calculate the size of the converted string (in bytes)
-    int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
-    if (len == 0) {
-        return NULL;  // Conversion failed
-    }
+inline std::string wstringToString(const std::wstring& wstr) {
+    if (wstr.empty()) return std::string();
 
-    // Allocate memory for the converted string
-    char* str = (char*)malloc(len * sizeof(char));
-    if (str == NULL) {
-        return NULL;  // Memory allocation failed
-    }
+    int sizeNeeded = WideCharToMultiByte(
+        CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr
+    );
 
-    // Perform the conversion
-    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
+    std::string str(sizeNeeded, 0);
+    WideCharToMultiByte(
+        CP_UTF8, 0, wstr.c_str(), -1, &str[0], sizeNeeded, nullptr, nullptr
+    );
+
+    // Remove the null terminator included by WideCharToMultiByte
+    if (!str.empty() && str.back() == '\0') {
+        str.pop_back();
+    }
 
     return str;
+}
+        
+inline int StringToInt(const std::string& str) {
+    try {
+        return std::stoi(str);
+    }
+    catch (...) {
+        return 0;
+    }
+}
+
+inline std::string ToUpper(const std::string& str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(), ::toupper);
+    return result;
+}
+
+inline std::string wcharToChar(const wchar_t* wstr) {
+    if (!wstr) return std::string();
+
+    int sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
+    if (sizeNeeded <= 0) return std::string();
+
+    std::string result(sizeNeeded, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, &result[0], sizeNeeded, nullptr, nullptr);
+
+    // Remove null terminator if present
+    if (!result.empty() && result.back() == '\0') result.pop_back();
+
+    return result;
 }
 
 // Converts day, month, year to "DD:MM:YYYY" string

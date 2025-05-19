@@ -6,6 +6,8 @@
 #include "users.h"
 #include "medics.h"
 #include "patients.h"
+#include "rooms.h"
+#include "appointments.h"
 
 extern INT_PTR CALLBACK WindowProcLogin(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcSignUp(HWND, UINT, WPARAM, LPARAM);
@@ -14,6 +16,10 @@ extern INT_PTR CALLBACK WindowProcMedic(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcPatient(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcSpec(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcRooms(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcCitas(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcReportMenu(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcReportMedic(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcReportApt(HWND, UINT, WPARAM, LPARAM);
 
 // Global AppData singleton
 class AppData {
@@ -30,6 +36,8 @@ public:
 	MedicList medic_list;
     PatientList patient_list;
     SpecList spec_list;
+    RoomList room_list;
+    AppointmentList app_list;
 
     static AppData& Instance() {
         static AppData instance;
@@ -42,6 +50,8 @@ public:
         medic_list.loadFromFile();
         patient_list.loadFromFile();
         spec_list.loadFromFile();
+        room_list.loadFromFile();
+        app_list.loadFromFile();
 
         // Only create samples if the list is empty
         if (!patient_list.head) {
@@ -57,7 +67,7 @@ public:
 
     void writeDebugLog() {
         if (log.is_open()) {
-		    medic_list.printList();
+		    app_list.printList();
             log << " ------- " << std::endl;
         }
     }
@@ -98,6 +108,15 @@ inline void FillSpecialtyListBox(HWND hList) {
         std::wstring wname = StringToWString(current->name); // Use the utility!
         SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)wname.c_str());
         current = current->next;
+    }
+}
+
+inline void FillRoomsListBox(HWND hList, std::string spec) {
+    SendMessage(hList, LB_RESETCONTENT, 0, 0);
+    std::vector<std::string> foundRooms = AppData::Instance().room_list.getRoomIdsBySpec(spec);
+    for (const auto& id : foundRooms) {
+        std::wstring wname = StringToWString(id); // Use the utility!
+        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)wname.c_str());
     }
 }
 
