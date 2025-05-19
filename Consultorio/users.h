@@ -85,6 +85,7 @@ public:
                 current->email = newEmail;
                 current->password = newPassword;
                 current->date = newDate;
+                saveToFile();
                 return true;
             }
             current = current->next;
@@ -114,6 +115,7 @@ public:
                 else tail = current->prev;
 
                 delete current;
+                saveToFile();
                 return true;
             }
             current = current->next;

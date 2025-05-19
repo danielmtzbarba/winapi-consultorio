@@ -144,6 +144,7 @@
     <ClCompile Include="win_spec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="appointments.h" />
     <ClInclude Include="medics.h" />
     <ClInclude Include="patients.h" />
     <ClInclude Include="resource.h" />

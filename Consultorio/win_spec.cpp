@@ -2,17 +2,31 @@
 
 inline void UpdateSpecFields(HWND hList) {
     SetTextBox(IDC_TXT_ESP_EDICION, "");
+    SetTextBox(IDC_TXT_CANTIDAD, "");
 	FillSpecialtyListBox(hList);
+}
+
+inline void AddRooms(int n, std::string prefix, std::string spec) {
+    // Get the first three characters of the specialty, uppercase
+    for (int i = 1; i <= n; ++i) {
+        std::string id = prefix + std::to_string(i);
+        std::string userid = "admin";
+        AppData::Instance().room_list.addRoom(id, spec, userid);
+    }
 }
 
 inline BOOL AddSpec(HWND hList) {
 	std::string spec = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_ESP_EDICION);
-	if (IsEmpty(spec)) {
+    std::string n_str = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_CANTIDAD);
+    if (IsEmpty(spec) || IsEmpty(n_str)) {
 		return FALSE;
 	}
-
-	AppData::Instance().spec_list.addSpec(spec, spec, AppData::Instance().userId);
+    std::string prefix = spec.substr(0, 3);
+    prefix = ToUpper(prefix);
+	AppData::Instance().spec_list.addSpec(prefix, spec, AppData::Instance().userId);
     UpdateSpecFields(hList);
+    int n = StringToInt(n_str);
+    AddRooms(n, prefix, spec);
 	return TRUE;
 }
 
@@ -25,8 +39,10 @@ inline void removeSpec(HWND hList) {
         wchar_t buffer[256];
         SendMessage(hList, LB_GETTEXT, index, (LPARAM)buffer);
         std::string selectedItem = wcharToChar(buffer);
+		std::string prefix = selectedItem.substr(0, 3);
+		prefix = ToUpper(prefix);
 
-		bool isDeleted = AppData::Instance().spec_list.removeSpecById(selectedItem);
+		bool isDeleted = AppData::Instance().spec_list.removeSpecById(prefix);
 		UpdateSpecFields(hList);
 		if (isDeleted) {
 			MessageBox(AppData::Instance().activeWindow, L"Especialidad eliminada!", L"Info", MB_OK);

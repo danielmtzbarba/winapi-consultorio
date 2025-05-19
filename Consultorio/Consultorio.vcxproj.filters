@@ -58,6 +58,9 @@
     <ClInclude Include="rooms.h">
       <Filter>DoublyLinkedLists</Filter>
     </ClInclude>
+    <ClInclude Include="appointments.h">
+      <Filter>DoublyLinkedLists</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window Logic">

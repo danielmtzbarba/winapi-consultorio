@@ -90,6 +90,7 @@ public:
                 current->phone = newPhone;
                 current->spec = newSpec;
                 current->userid = newUserid;
+                saveToFile();
                 return true;
             }
             current = current->next;
@@ -121,6 +122,7 @@ public:
                 else tail = current->prev;
 
                 delete current;
+                saveToFile();
                 return true;
             }
             current = current->next;

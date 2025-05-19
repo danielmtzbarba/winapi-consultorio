@@ -45,6 +45,8 @@
 #define IDC_LBL_GUION_DOM               1053
 
 //CAJAS DE EDICION
+
+#define IDC_TXT_CON_ESP                 1079
 #define IDC_TXT_CANTIDAD                1021//CANTIDAD DE CONSULTORIOS
 #define IDC_TXT_HORA_INICIO_LUN         1054
 #define IDC_TXT_HORA_FIN_LUN            1056
@@ -60,18 +62,7 @@
 #define IDC_TXT_HORA_FIN_SAB            1016
 #define IDC_TXT_HORA_INICIO_DOM         1017
 #define IDC_TXT_HORA_FIN_DOM            1018
-
-//CHECKBOXES
-#define IDC_CHK_LUNES                   1033
-#define IDC_CHK_MARTES                  1034
-#define IDC_CHK_MIERCOLES               1035
-#define IDC_CHK_JUEVES                  1036
-#define IDC_CHK_VIERNES                 1037
-#define IDC_CHK_SABADO                  1038
-#define IDC_CHK_DOMINGO                 1039
-
-//SPIN CONTROL
-#define IDC_SPN_CANTIDAD                1032//CANTIDAD DE CONSULTORIOS
+#define IDC_DATETIMEPICKER2             1145
 
 //LISTBOX
 #define IDC_LST_CONSULTORIOS            1062//CANTIDAD DE CONSULTORIOS
@@ -83,6 +74,7 @@
 #define IDC_BTN_CERRAR                  1020//CIERRA VENTANA
 #define IDC_BTN_LIMPIAR                 1019//LIMPIA HORARIOS
 #define IDC_BTN_REGRESAR                1022
+#define IDC_BTN_CON_BUSCAR              1065
 
 
 
@@ -165,6 +157,8 @@
 #define IDC_CBX_CIT_PACIENTE            1012
 #define IDC_CBX_CIT_ESTATUS             1016
 #define IDC_CBX_CIT_HORA                1015
+
+#define IDC_TXT_CON_CEDULA              1146
 
 //CAJA DE EDICION
 #define IDC_TXT_CIT_DIAGNOSTICO         1105
