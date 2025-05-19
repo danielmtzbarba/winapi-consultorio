@@ -55,6 +55,7 @@
 #define IDC_TXT_HORA_FIN_VIER           1014
 #define IDC_CBX_CIT_CONSULTORIO         1014
 #define IDC_BTN_MENU_EDITAR_CITA        1014
+#define IDC_DTP_CIT_FECHA2              1014
 #define IDC_TXT_HORA_INICIO_SAB         1015
 #define IDC_CBX_CIT_HORA                1015
 #define IDC_TXT_HORA_FIN_SAB            1016

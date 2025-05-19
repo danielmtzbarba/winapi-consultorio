@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline bool Login(HWND hDlg) {
 	const int idcFields[] = {
@@ -10,7 +11,7 @@ inline bool Login(HWND hDlg) {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(hDlg, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			MessageBox(hDlg, L"Por favor, complete todos los campos obligatorios.", L"Error", MB_OK | MB_ICONERROR);
             return FALSE;
@@ -37,7 +38,7 @@ inline INT_PTR CALLBACK WindowProcLogin(HWND hDlg, UINT message, WPARAM wParam, 
     switch (message) {
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         return TRUE;
 
     case WM_COMMAND:

@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline std::string readAppDate() {
     SYSTEMTIME st = { 0 };
@@ -24,7 +25,7 @@ inline void checkAvailability() {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return;
@@ -78,7 +79,7 @@ inline void checkAppointment() {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return;
@@ -110,7 +111,7 @@ inline void checkAppointment() {
 }
 
 inline void searchPatientAppointments() {
-    std::string patientid = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_PAC_ID2);
+    std::string patientid = ReadTextBox(IDC_TXT_PAC_ID2);
 	if (IsEmpty(patientid)) {
 		MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 		return;
@@ -139,7 +140,7 @@ inline void updateAppointment() {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return;
@@ -175,7 +176,7 @@ inline INT_PTR CALLBACK WindowProcCitas(HWND hDlg, UINT message, WPARAM wParam, 
     HWND hComboSpec, hComboMed, hComboApp;
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
 		hComboSpec = GetDlgItem(hDlg, IDC_CBX_CIT_ESPECIALIDAD);
         FillSpecialtyComboBox(hComboSpec);
         hComboApp = GetDlgItem(hDlg, IDC_CBX_CIT_ESTATUS);

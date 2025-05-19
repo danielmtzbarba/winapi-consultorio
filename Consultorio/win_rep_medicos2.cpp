@@ -13,7 +13,7 @@
 #define ID_LISTVIEW_REPORTE   1006
 
 
-LRESULT CALLBACK ReporteMedicosProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+inline LRESULT CALLBACK ReporteMedicosProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     static HWND hComboEspecialidad, hComboMedico, hEditFechaIni, hEditFechaFin, hButtonBuscar, hListView;
 
     switch (msg) {
@@ -89,7 +89,7 @@ LRESULT CALLBACK ReporteMedicosProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM l
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-void MostrarVentanaReporteMedico(HINSTANCE hInstance) {
+inline void MostrarVentanaReporteMedico(HINSTANCE hInstance) {
     const wchar_t CLASS_NAME[] = L"ReporteMedicoClass";
 
     WNDCLASS wc = { 0 };
@@ -100,8 +100,17 @@ void MostrarVentanaReporteMedico(HINSTANCE hInstance) {
 
     RegisterClass(&wc);
 
-    CreateWindowEx(0, CLASS_NAME, L"Reporte de Medico",
+    HWND  hwnd = CreateWindowEx(0, CLASS_NAME, L"Reporte de Medico",
         WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
         100, 100, 820, 500,
         NULL, NULL, hInstance, NULL);
+
+    if (!hwnd) {
+        MessageBox(NULL, L"Failed to create window", L"Error", MB_OK | MB_ICONERROR);
+        return;
+    }
+
+    ShowWindow(hwnd, SW_SHOW);
+    UpdateWindow(hwnd);
+
 }

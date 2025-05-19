@@ -1,10 +1,11 @@
 #include "data.h"
+#include "controls.h"
 
 inline INT_PTR CALLBACK WindowProcMenu(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         return TRUE;
 
     case WM_COMMAND:

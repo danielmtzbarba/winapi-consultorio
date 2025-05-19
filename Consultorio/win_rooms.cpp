@@ -1,9 +1,10 @@
 #include "data.h"
+#include "controls.h"
 
 inline void searchID() {
     std::string id;
 
-    id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_CON_CEDULA);
+    id =  ReadTextBox(IDC_TXT_CON_CEDULA);
     MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
     HWND hList = GetDlgItem(AppData::Instance().activeWindow, IDC_LST_CONSULTORIOSGRANDE);
 
@@ -59,7 +60,7 @@ inline void addAppointmentSlots() {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			return;
 		}
@@ -89,7 +90,7 @@ inline INT_PTR CALLBACK WindowProcRooms(HWND hDlg, UINT message, WPARAM wParam, 
     switch (message) {
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
         return TRUE;
 
     case WM_COMMAND:

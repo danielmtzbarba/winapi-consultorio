@@ -21,6 +21,10 @@ extern INT_PTR CALLBACK WindowProcReportMenu(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcReportMedic(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcReportApt(HWND, UINT, WPARAM, LPARAM);
 
+extern void MostrarVentanaReporteMedico(HINSTANCE hInstance);
+
+extern LRESULT CALLBACK ReporteMedicosProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 // Global AppData singleton
 class AppData {
 public:
@@ -89,47 +93,3 @@ private:
     }
 };
 
-inline void FillSpecialtyComboBox(HWND hCombo) {
-    SendMessage(hCombo, CB_RESETCONTENT, 0, 0);
-
-    SpecNode* current = AppData::Instance().spec_list.head;
-    while (current) {
-        std::wstring wname = StringToWString(current->name); // Use the utility!
-        SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)wname.c_str());
-        current = current->next;
-    }
-}
-
-inline void FillSpecialtyListBox(HWND hList) {
-    SendMessage(hList, LB_RESETCONTENT, 0, 0);
-
-    SpecNode* current = AppData::Instance().spec_list.head;
-    while (current) {
-        std::wstring wname = StringToWString(current->name); // Use the utility!
-        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)wname.c_str());
-        current = current->next;
-    }
-}
-
-inline void FillRoomsListBox(HWND hList, std::string spec) {
-    SendMessage(hList, LB_RESETCONTENT, 0, 0);
-    std::vector<std::string> foundRooms = AppData::Instance().room_list.getRoomIdsBySpec(spec);
-    for (const auto& id : foundRooms) {
-        std::wstring wname = StringToWString(id); // Use the utility!
-        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)wname.c_str());
-    }
-}
-
-// Helper to set a text field
-inline void SetTextBox(int id, const std::string& value) {
-    std::wstring wvalue = StringToWString(value);
-    SetWindowTextW(GetDlgItem(AppData::Instance().activeWindow, id), wvalue.c_str());
-}
-
-
-// Helper to select a value in a combobox by string
-inline void SetComboBoxByString(int id, const std::string& value) {
-    HWND hCombo = GetDlgItem(AppData::Instance().activeWindow, id);
-    std::wstring wvalue = StringToWString(value);
-    SendMessage(hCombo, CB_SELECTSTRING, -1, (LPARAM)wvalue.c_str());
-}

@@ -1,4 +1,5 @@
 #include "data.h"
+#include "controls.h"
 
 inline void ClearMedicFields() {
     SetTextBox(IDC_TXT_MED_CEDULA, "");
@@ -30,7 +31,7 @@ inline BOOL AddMedic(bool update) {
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(AppData::Instance().activeWindow, idcFields[i]);
+        fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
 			return FALSE;
 		}
@@ -57,7 +58,7 @@ inline BOOL AddMedic(bool update) {
 
 inline void removeMedic() {
     std::string id;
-    id = ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_MED_CEDULA);
+    id = ReadTextBox(IDC_TXT_MED_CEDULA);
     bool isDeleted = AppData::Instance().medic_list.removeMedicById(id);
     ClearMedicFields();
     if (isDeleted) {
@@ -67,7 +68,7 @@ inline void removeMedic() {
 
 inline void searchMedic() {
     std::string id;
-    id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_MED_CEDULA);
+    id =  ReadTextBox(IDC_TXT_MED_CEDULA);
     MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
     if (!found) {
         ClearMedicFields();
@@ -89,7 +90,7 @@ inline INT_PTR CALLBACK WindowProcMedic(HWND hDlg, UINT message, WPARAM wParam, 
     HWND hCombo;
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
-        CenterWindow(hDlg);
+        CenterWindow();
 		hCombo = GetDlgItem(hDlg, IDC_CBX_MED_ESPECIAL);
         FillSpecialtyComboBox(hCombo);
         return TRUE;
