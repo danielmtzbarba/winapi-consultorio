@@ -8,7 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     AppData::Instance().hInst = hInstance;
 
     // Now launch the dialog
-    DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_REPORTE_CITAS), NULL, WindowProcReportApt);
+    DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_INICIO_SESION), NULL, WindowProcLogin);
 
     return 0;
 }
