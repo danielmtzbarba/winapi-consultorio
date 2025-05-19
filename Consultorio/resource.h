@@ -140,6 +140,7 @@
 #define IDC_LBL_PAC_EDAD                1088
 #define IDC_TXT_PAC_ID                  1089
 #define IDC_TXT_PAC_NOMBRE              1090
+#define IDC_TXT_PAC_ID2                 1090
 #define IDC_TXT_PAC_CORREO              1091
 #define IDC_TXT_PAC_TELEFONO            1092
 #define IDC_CBX_PAC_GENERO              1093
@@ -164,6 +165,7 @@
 #define IDC_BTN_CIT_CONFIRMAR           1107
 #define IDC_LBL_CIT_ESTATUS4            1107
 #define IDC_BTN_CIT_CANCELAR            1108
+#define IDC_BTN_CIT_RESERVAR2           1108
 #define IDC_BTN_CIT_REG_DIAGNOSTICO     1109
 #define IDC_LBL_LOGIN_CEDULA            1110
 #define IDC_LBL_CIT_ESTATUS2            1110
@@ -174,6 +176,8 @@
 #define IDC_BTN_LOGIN_ENTRAR            1113
 #define IDC_LBL_CIT_PACIENTE3           1113
 #define IDC_BTN_LOGIN_REGISTRAR         1114
+#define IDC_BTN_CIT_RESERVAR3           1114
+#define IDC_BTN_CIT_BUSCAR              1114
 #define IDC_LBL_USR_NOMBRE              1115
 #define IDC_LBL_USR_AP_PATERNO          1116
 #define IDC_LBL_USR_AP_MATERNO          1117

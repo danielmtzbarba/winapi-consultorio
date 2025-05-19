@@ -4,7 +4,7 @@ inline void searchID() {
     std::string id;
 
     id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_CON_CEDULA);
-    MedicNode* found = AppData::Instance().medic_list.searchMedic(id);
+    MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
     HWND hList = GetDlgItem(AppData::Instance().activeWindow, IDC_LST_CONSULTORIOSGRANDE);
 
     if (!found) {
@@ -18,7 +18,7 @@ inline void searchID() {
     FillRoomsListBox(hList, found->spec);
 
 }
-inline std::string readDate() {
+inline std::string readRoomDate() {
     SYSTEMTIME st = { 0 };
     HWND hDatePicker = GetDlgItem(AppData::Instance().activeWindow, IDC_DATETIMEPICKER2);
     std::string date_str;
@@ -29,6 +29,10 @@ inline std::string readDate() {
         swprintf(buffer, 100, L"%02d-%02d-%04d", st.wDay, st.wMonth, st.wYear);
         date_str = wstringToString(buffer);
     }
+    else {
+        MessageBox(AppData::Instance().activeWindow, L"DTM_GETSYSTEMTIME failed or no date selected.", L"Error", MB_OK | MB_ICONERROR);
+    }
+
     return date_str;
 }
 
@@ -66,13 +70,14 @@ inline void addAppointmentSlots() {
 	std::string hour1_str = fieldValues[2];
 	std::string hour2_str = fieldValues[3];
 
-	std::string date = readDate();
-    std::string id;
+	std::string date = readRoomDate();
+    std::string id, hourid;
 	int hour1, hour2;
 	hour2 = StringToInt(hour2_str);
 	for (hour1 = StringToInt(hour1_str); hour1 <= hour2; hour1++) {
-		id = selectedRoom + "-" + date + "-" + std::to_string(hour1);
-	    AppData::Instance().app_list.addAppointment(id, date, std::to_string(hour1),
+		hourid= std::to_string(hour1) + "-" + std::to_string(hour1 + 1);
+		id = selectedRoom + "-" + date + "-" + hourid;
+	    AppData::Instance().app_list.addAppointment(id, date, hourid,
 		    spec, selectedRoom, medicid, "", "DISPONIBLE", "", AppData::Instance().userId);
 	}
     MessageBox(AppData::Instance().activeWindow, L"Registro actualizado!", L"Info", MB_OK | MB_ICONINFORMATION);
@@ -82,7 +87,6 @@ inline void addAppointmentSlots() {
 
 inline INT_PTR CALLBACK WindowProcRooms(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
-    HWND hCombo;
     case WM_INITDIALOG:
         AppData::Instance().activeWindow = hDlg;
         CenterWindow(hDlg);

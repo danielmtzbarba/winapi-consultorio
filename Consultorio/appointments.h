@@ -127,7 +127,65 @@ public:
         }
         return false;
     }
+   
+    // SEARCH
+    std::vector<std::string> getAppointmentsByMedic(const std::string& medicid) const {
+        std::vector<std::string> ids;
+        AppointmentNode* current = head;
+        while (current) {
+            if (current->medicid == medicid &&
+                current->status == "DISPONIBLE") {
+                ids.push_back(current->hour);
+            }
+            current = current->next;
+        }
+        return ids;
+    }
 
+    std::vector<std::string> getAppointmentsByPatient(const std::string& patientid) const {
+        std::vector<std::string> ids;
+        AppointmentNode* current = head;
+        while (current) {
+            if (current->patientid == patientid &&
+                current->status == "RESERVADA") {
+                ids.push_back(current->id);
+            }
+            current = current->next;
+        }
+        return ids;
+    }
+    AppointmentNode* getAppointmentPtr(const std::string medicid,
+        const std::string date, const std::string hour 
+    ) {
+        AppointmentNode* result(nullptr);
+        AppointmentNode* current = head;
+        while (current) {
+            if (current->medicid == medicid &&
+                current->date == date &&
+                current->hour == hour
+                ) {
+                result = current;
+                return result;
+            }
+            current = current->next;
+        }
+        return result; // not found
+    }
+
+    AppointmentNode* getAppointmentById(const std::string aptid){
+        AppointmentNode* result(nullptr);
+        AppointmentNode* current = head;
+        while (current) {
+            if (current->id == aptid) {
+                result = current;
+                return result;
+            }
+            current = current->next;
+        }
+        return result; // not found
+    }
+
+    // I/O BINARY FILES
     void saveToFile() const {
         const std::string& filename = "database/appointments.bin";
         std::ofstream outFile(filename, std::ios::binary);
@@ -153,7 +211,7 @@ public:
 
         outFile.close();
     }
-
+    
     void loadFromFile() {
         const std::string& filename = "database/appointments.bin";
         std::ifstream inFile(filename, std::ios::binary);
@@ -185,6 +243,8 @@ public:
         inFile.close();
     }
 
+
+    //DEBUG
     void printList() const {
         AppointmentNode* current = head;
         while (current) {
@@ -194,13 +254,4 @@ public:
         }
     }
 
-    std::vector<AppointmentNode*> extractToVector() {
-        std::vector<AppointmentNode*> nodes;
-        AppointmentNode* current = head;
-        while (current) {
-            nodes.push_back(current);
-            current = current->next;
-        }
-        return nodes;
-    }
 };

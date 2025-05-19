@@ -158,10 +158,12 @@
 #define IDC_CBX_CIT_ESTATUS             1016
 #define IDC_CBX_CIT_HORA                1015
 
+#define IDC_CBX_CIT_PACIENTE3           1019
 #define IDC_TXT_CON_CEDULA              1146
 
 //CAJA DE EDICION
 #define IDC_TXT_CIT_DIAGNOSTICO         1105
+#define IDC_TXT_PAC_ID2                 1090
 
 //DATE TIME CONTROL
 #define IDC_DTP_CIT_FECHA               1013
@@ -172,7 +174,7 @@
 #define IDC_BTN_CIT_CONFIRMAR           1107
 #define IDC_BTN_CIT_CANCELAR            1108
 #define IDC_BTN_CIT_REG_DIAGNOSTICO     1109
-
+#define IDC_BTN_CIT_RESERVAR2           1108
 
 
 //=======================
@@ -268,6 +270,7 @@
 #define IDC_BTN_REP_REGRESAR            1134
 #define IDC_BTN_REP_GUARDAR             1135
 
+#define IDC_BTN_CIT_BUSCAR              1114
 //FALTA LISTVIEW, ESE LO HARE POR CODIGO SI NO TIENES TIEMPO
 
 //=======================

@@ -35,6 +35,9 @@
     <ClCompile Include="win_rooms.cpp">
       <Filter>Window Logic</Filter>
     </ClCompile>
+    <ClCompile Include="win_citas.cpp">
+      <Filter>Window Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

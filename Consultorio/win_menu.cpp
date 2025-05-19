@@ -34,6 +34,11 @@ inline INT_PTR CALLBACK WindowProcMenu(HWND hDlg, UINT message, WPARAM wParam, L
             EndDialog(hDlg, 0);
             DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_CONSULTORIOS), NULL, WindowProcRooms);
             return TRUE;
+
+        case IDC_BTN_MENU_AGENDAR:
+            EndDialog(hDlg, 0);
+            DialogBox(AppData::Instance().hInst, MAKEINTRESOURCE(IDD_RESERVACION_CITAS), NULL, WindowProcCitas);
+            return TRUE;
         }
 
     case WM_CLOSE:

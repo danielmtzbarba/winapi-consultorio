@@ -133,6 +133,7 @@
     <ClCompile Include="data.h" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="utils.h" />
+    <ClCompile Include="win_citas.cpp" />
     <ClCompile Include="win_login.cpp" />
     <ClCompile Include="win_medic.cpp" />
     <ClCompile Include="win_menu.cpp" />

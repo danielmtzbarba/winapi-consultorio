@@ -16,6 +16,7 @@ extern INT_PTR CALLBACK WindowProcMedic(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcPatient(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcSpec(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcRooms(HWND, UINT, WPARAM, LPARAM);
+extern INT_PTR CALLBACK WindowProcCitas(HWND, UINT, WPARAM, LPARAM);
 
 // Global AppData singleton
 class AppData {

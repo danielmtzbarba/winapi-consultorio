@@ -68,7 +68,7 @@ inline void removeMedic() {
 inline void searchMedic() {
     std::string id;
     id =  ReadTextBox(AppData::Instance().activeWindow, IDC_TXT_MED_CEDULA);
-    MedicNode* found = AppData::Instance().medic_list.searchMedic(id);
+    MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
     if (!found) {
         ClearMedicFields();
 		MessageBox(AppData::Instance().activeWindow, L"Cedula no registrada!", L"Error", MB_OK | MB_ICONERROR);
