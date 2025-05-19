@@ -25,7 +25,7 @@ inline void GenerateMedicReport() {
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
     
-    std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDates(medicid, date_start, date_end);
+    std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDatesMed(medicid, date_start, date_end);
     for (size_t i = 0; i < foundApts.size(); ++i) {
         AppointmentNode* apt = foundApts[i];
         std::string medic_name = AppData::Instance().medic_list.getMedicNameById(apt->medicid);
@@ -96,7 +96,7 @@ inline INT_PTR CALLBACK WindowProcReportMedic(HWND hDlg, UINT message, WPARAM wP
             return TRUE;
 
         case IDC_BTN_REPMED_LIMPIAR:
-            CleanReportFields();
+            CleanReportFields(true);
             return TRUE;
         }
 

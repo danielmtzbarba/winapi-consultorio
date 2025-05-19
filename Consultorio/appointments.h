@@ -186,7 +186,7 @@ public:
         return result; // not found
     }
     
-    std::vector<AppointmentNode*> getAppointmentsByDates(
+    std::vector<AppointmentNode*> getAppointmentsByDatesMed(
         const std::string& medicid,
         const std::string& date1,
         const std::string& date2
@@ -203,6 +203,32 @@ public:
             date_current = dateStrToIntTuple(current->date);
             if (current->medicid == medicid &&
                 current->status != "DISPONIBLE" &&
+                date_current >= d1 &&
+                date_current <= d2
+                ) {
+                ids.push_back(current);
+            }
+            current = current->next;
+        }
+        return ids;
+    }
+
+    std::vector<AppointmentNode*> getAppointmentsByDatesPat(
+        const std::string& patientid,
+        const std::string& date1,
+        const std::string& date2
+    ) const {
+
+        std::vector<AppointmentNode*> ids;
+        std::tuple<int, int, int> date_current, d1, d2;
+
+        d1 = dateStrToIntTuple(date1);
+        d2 = dateStrToIntTuple(date2);
+
+        AppointmentNode* current = head;
+        while (current) {
+            date_current = dateStrToIntTuple(current->date);
+            if (current->patientid == patientid &&
                 date_current >= d1 &&
                 date_current <= d2
                 ) {

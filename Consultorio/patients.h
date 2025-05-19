@@ -115,6 +115,20 @@ public:
         }
         return result; // not found
     }
+
+    std::string getPatientNameById(const std::string id) {
+        std::string name;
+        PatientNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                name = current->lname1 + " " + current->lname2 + " " + current->fname;
+                return name;
+            }
+            current = current->next;
+        }
+        return name; // not found
+    }
+
     bool removePatientById(const std::string& id) {
         PatientNode* current = head;
         while (current) {

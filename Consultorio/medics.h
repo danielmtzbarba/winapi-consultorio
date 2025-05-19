@@ -122,6 +122,7 @@ public:
         }
         return name; // not found
     }
+
     std::vector<std::string> getMedicIdsBySpec(const std::string& spec) const {
         std::vector<std::string> ids;
         MedicNode* current = head;

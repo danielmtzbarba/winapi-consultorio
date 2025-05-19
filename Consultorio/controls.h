@@ -52,9 +52,9 @@ inline void FillSpecialtyComboBox(HWND hCombo) {
 inline void FillPatientComboBox(HWND hCombo) {
     SendMessage(hCombo, CB_RESETCONTENT, 0, 0);
 
-    SpecNode* current = AppData::Instance().spec_list.head;
+    PatientNode* current = AppData::Instance().patient_list.head;
     while (current) {
-        std::wstring wname = StringToWString(current->name); // Use the utility!
+        std::wstring wname = StringToWString(current->id); // Use the utility!
         SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)wname.c_str());
         current = current->next;
     }
@@ -120,13 +120,16 @@ inline void drawListView(int control_id, const wchar_t* headers[], int widths[])
 }
 
 // CLEAN FIELDS
-inline void CleanReportFields() {
+inline void CleanReportFields(bool medreport) {
     HWND hComboSpec = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_REPMED_ESPECIALIDAD);
     HWND hComboMed = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_CIT_MEDICO);
     HWND hListView = GetDlgItem(AppData::Instance().activeWindow, ID_LISTVIEW_REPORTE); 
 
-    if (hComboMed) {
+    if (medreport) {
         SendMessage(hComboMed, CB_RESETCONTENT, 0, 0);
+    }
+
+    if (hComboMed) {
         SendMessage(hComboMed, CB_SETCURSEL, -1, 0); // Deselect any selection
     }
 

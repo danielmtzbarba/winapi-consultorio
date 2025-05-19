@@ -2,41 +2,29 @@
 #include "controls.h"
 
 inline void GenerateAptReport() {
-	const int idcFields[] = {
-		IDC_CBX_REPMED_ESPECIALIDAD,
-		IDC_CBX_CIT_MEDICO,
-	};
-
-	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
     HWND hListView = GetDlgItem(AppData::Instance().activeWindow, ID_LISTVIEW_REPORTE);
-
-	// Read and check each field
-    for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
-        fieldValues[i] = ReadTextBox(idcFields[i]);
-		if (IsEmpty(fieldValues[i])) {
+		
+        std::string patientid = ReadTextBox(IDC_CBX_CIT_MEDICO);
+		if (IsEmpty(patientid)) {
 			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return;
 		}
-	}
-
-	// Assign values to variables for clarity
-	std::string spec = fieldValues[0];
-	std::string medicid = fieldValues[1];
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
     
-    std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDates(medicid, date_start, date_end);
+    std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDatesPat(patientid, date_start, date_end);
     for (size_t i = 0; i < foundApts.size(); ++i) {
         AppointmentNode* apt = foundApts[i];
         std::string medic_name = AppData::Instance().medic_list.getMedicNameById(apt->medicid);
+        std::string patient_name = AppData::Instance().patient_list.getPatientNameById(apt->patientid);
         // Example columns: Cedula, Nombre (?), Fecha, Dia (?), Hora, Paciente, Estatus, Diagnóstico
         std::wstring rowData[] = {
-            StringToWString(apt->medicid),
-            StringToWString(medic_name),
+            StringToWString(apt->patientid),
+            StringToWString(patient_name),
             StringToWString(apt->date),
             StringToWString(getWeekDay(apt->date)), 
             StringToWString(apt->hour),
-            StringToWString(apt->patientid),
+            StringToWString(medic_name),
             StringToWString(apt->status),
             StringToWString(apt->diagnosis)
         };
@@ -54,13 +42,14 @@ inline INT_PTR CALLBACK WindowProcReportApt(HWND hDlg, UINT message, WPARAM wPar
         CenterWindow();
 
         //ListView
-	    const wchar_t* headers[] = { L"Cedula", L"Nombre", L"Fecha", L"Dia", L"Hora", L"Paciente", L"Estatus", L"Diagnostico" };
-    	int widths[] = { 80, 120, 80, 80, 60, 120, 100, 140 };
+        const wchar_t* headers[] = { L"ID Paciente", L"Nombre", L"Fecha", L"Dia", L"Hora", L"Medico", L"Especialidad", L"Estatus", L"Diagnostico" };
+        int widths[] = { 80, 120, 80, 80, 60, 120, 100, 100, 140 };
+
         drawListView(ID_LISTVIEW_REPORTE, headers, widths);
 
         // ComboBox
         hComboPat = GetDlgItem(hDlg, IDC_CBX_CIT_MEDICO);
-        FillSpecialtyComboBox(hComboPat);
+        FillPatientComboBox(hComboPat);
 
         return TRUE;
     } break;
@@ -79,7 +68,7 @@ inline INT_PTR CALLBACK WindowProcReportApt(HWND hDlg, UINT message, WPARAM wPar
             return TRUE;
 
         case IDC_BTN_REPMED_LIMPIAR:
-            CleanReportFields();
+            CleanReportFields(false);
             return TRUE;
         }
 
