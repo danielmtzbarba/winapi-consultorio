@@ -171,6 +171,11 @@ public:
 
         inFile.close();
     }
+    
+    void createSampleUsers() {
+        clear();
+        addUser("danielmtz", "Daniel", "Martinez", "Barba", "danielmtz@clinic.com", "1234", DateToString(16, 05, 2025));
+    }
 
     std::vector<UserNode*> extractToVector() {
         std::vector<UserNode*> nodes;
