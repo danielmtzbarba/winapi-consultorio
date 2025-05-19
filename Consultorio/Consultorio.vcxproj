@@ -138,6 +138,9 @@
     <ClCompile Include="win_medic.cpp" />
     <ClCompile Include="win_menu.cpp" />
     <ClCompile Include="win_patient.cpp" />
+    <ClCompile Include="win_reportmenu.cpp" />
+    <ClCompile Include="win_rep_apt.cpp" />
+    <ClCompile Include="win_rep_med.cpp" />
     <ClCompile Include="win_rooms.cpp" />
     <ClCompile Include="win_signup.cpp" />
     <ClCompile Include="win_rep_citas.cpp" />
