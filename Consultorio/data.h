@@ -21,10 +21,6 @@ extern INT_PTR CALLBACK WindowProcReportMenu(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcReportMedic(HWND, UINT, WPARAM, LPARAM);
 extern INT_PTR CALLBACK WindowProcReportApt(HWND, UINT, WPARAM, LPARAM);
 
-extern void MostrarVentanaReporteMedico(HINSTANCE hInstance);
-
-extern LRESULT CALLBACK ReporteMedicosProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 // Global AppData singleton
 class AppData {
 public:

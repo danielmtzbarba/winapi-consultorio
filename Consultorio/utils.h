@@ -1,19 +1,28 @@
 #pragma once
 
+// WinApi
 #include <windows.h>
+
+// <-- Required for std::ofstream and std::ifstream
 #include <iostream>
-#include <fstream>   // <-- Required for std::ofstream and std::ifstream
+#include <fstream>   
+
+// Strings
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
 #include <algorithm> // for std::transform
-#include <commctrl.h>
+
+// For time helper functions
 #include <tuple>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
 
+// For ListView
+#include <commctrl.h>
+#pragma comment(lib, "comctl32.lib")
 
 // Data types
 inline std::wstring StringToWString(const std::string& str) {
