@@ -48,14 +48,29 @@ public:
         head = tail = nullptr;
     }
 
-    void addSpec(const std::string& id,
+    bool addSpec(const std::string& id,
         const std::string& name,
         const std::string userid){
         SpecNode* newNode = new SpecNode(id, name, userid);
+        if (isDuplicate(id)) {
+            return false;
+        }
         append(newNode);
         saveToFile();
+        return true;
     }
 
+    bool isDuplicate(const std::string& id) {
+        SpecNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
+    }
+        
     bool removeSpecById(const std::string& id) {
         SpecNode* current = head;
         while (current) {
@@ -120,16 +135,16 @@ public:
 	// Creates 10 sample specialties and saves them to file
 	void createSampleSpecialties() {
 		clear();
-		addSpec("CAR", "Cardiology", "admin");
-		addSpec("DER", "Dermatology", "admin");
-		addSpec("NEU", "Neurology", "admin");
-		addSpec("PED", "Pediatrics", "admin");
-		addSpec("ONC", "Oncology", "admin");
-		addSpec("ORT", "Orthopedics", "admin");
-		addSpec("PSY", "Psychiatry", "admin");
-		addSpec("RAD", "Radiology", "admin");
-		addSpec("URO", "Urology", "admin");
-		addSpec("GAS", "Gastroenterology", "admin");
+		addSpec("CAR", "Cardiologia", "admin");
+		addSpec("DER", "Dermatologia", "admin");
+		addSpec("NEU", "Neurologia", "admin");
+		addSpec("PED", "Pediatria", "admin");
+		addSpec("ONC", "Oncologia", "admin");
+		addSpec("ORT", "Ortopedia", "admin");
+		addSpec("PSI", "Psiquiatria", "admin");
+		addSpec("RAD", "Radiologia", "admin");
+		addSpec("URO", "Urologia", "admin");
+		addSpec("GAS", "Gastrointerologia", "admin");
 	}
 
     std::vector<SpecNode*> extractToVector() {

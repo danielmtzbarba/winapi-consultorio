@@ -11,6 +11,8 @@
 #include <commctrl.h>
 #include <tuple>
 #include <ctime>
+#include <iomanip>
+#include <sstream>
 
 
 // Data types
@@ -71,21 +73,7 @@ inline std::string wcharToChar(const wchar_t* wstr) {
     return result;
 }
 
-// Converts day, month, year to "DD:MM:YYYY" string
-inline std::string DateToString(int day, int month, int year) {
-    char buffer[11];
-    snprintf(buffer, sizeof(buffer), "%02d-%02d-%04d", day, month, year);
-    return std::string(buffer);
-}
-
-// Parses "DD:MM:YYYY" string to day, month, year integers
-inline bool StringToDate(const std::string& dateStr, int& day, int& month, int& year) {
-    if (sscanf_s(dateStr.c_str(), "%2d-%2d-%4d", &day, &month, &year) == 3) {
-        return true;
-    }
-    return false;
-}
-
+// DATES
 inline std::tuple<int, int, int> dateStrToIntTuple(const std::string date) {
     int day = std::stoi(date.substr(0, 2));
     int month = std::stoi(date.substr(3, 2));
@@ -110,6 +98,27 @@ inline std::string getWeekDay(const std::string & fecha) {
 	};
 
 	return dias[time_in.tm_wday];
+}
+
+inline std::string getTodayDate() {
+    std::time_t t = std::time(nullptr);
+    std::tm local_tm;
+    localtime_s(&local_tm, &t);  // thread-safe version
+
+    std::ostringstream oss;
+    oss << std::setfill('0') << std::setw(2) << local_tm.tm_mday << "-"
+        << std::setw(2) << (local_tm.tm_mon + 1) << "-"
+        << (local_tm.tm_year + 1900);
+
+    return oss.str();  // "DD-MM-YYYY"
+}
+
+inline bool dateValidation(const std::string date){
+    std::string today_str = getTodayDate();
+	std::tuple<int, int, int> today, d2;
+	today = dateStrToIntTuple(today_str);
+	d2 = dateStrToIntTuple(date);
+    return today <= d2;
 }
 
 // Write and Read Strings

@@ -65,10 +65,24 @@ public:
         const std::string& password,
         const std::string& date) {
         UserNode* newNode = new UserNode(id, fname, lname1, lname2, email, password, date);
+        if (isDuplicate(id)) {
+            return;
+        }
         append(newNode);
         saveToFile();
+        return;
     }
 
+    bool isDuplicate(const std::string& id) {
+        UserNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
+    }
     bool updateUserById(const std::string& id,
         const std::string& newFname,
         const std::string& newLname1,
@@ -174,7 +188,8 @@ public:
     
     void createSampleUsers() {
         clear();
-        addUser("danielmtz", "Daniel", "Martinez", "Barba", "danielmtz@clinic.com", "1234", DateToString(16, 05, 2025));
+        std::string date = getTodayDate();
+        addUser("danielmtz", "Daniel", "Martinez", "Barba", "danielmtz@clinic.com", "1234", date);
     }
 
     std::vector<UserNode*> extractToVector() {

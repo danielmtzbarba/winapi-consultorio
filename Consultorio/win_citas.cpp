@@ -36,8 +36,13 @@ inline void checkAvailability() {
 	std::string spec = fieldValues[0];
 	std::string medicid = fieldValues[1];
     std::string date = readAppDate();
-    
-	std::vector<std::string> foundHours = AppData::Instance().app_list.getAppointmentsByMedic(medicid);
+   
+    if (!dateValidation(date)) {
+        MessageBoxA(AppData::Instance().activeWindow, "Fecha Invalida", "Info", MB_OK | MB_ICONWARNING);
+        return;
+    }
+
+	std::vector<std::string> foundHours = AppData::Instance().app_list.getAppointmentsByMedic(medicid, date);
 	HWND hComboHours = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_CIT_HORA);
 
     // Clear existing items
