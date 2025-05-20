@@ -143,8 +143,6 @@
     <ClCompile Include="win_rep_med.cpp" />
     <ClCompile Include="win_rooms.cpp" />
     <ClCompile Include="win_signup.cpp" />
-    <ClCompile Include="win_rep_citas.cpp" />
-    <ClCompile Include="win_rep_medicos2.cpp" />
     <ClCompile Include="win_spec.cpp" />
   </ItemGroup>
   <ItemGroup>

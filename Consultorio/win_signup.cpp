@@ -30,6 +30,7 @@ inline BOOL SignUp(HWND hDlg) {
         std::string id = fieldValues[4];
 
         std::string email, date; // If needed, add their IDC fields to the array above
+        date = getTodayDate();
 
         AppData::Instance().user_list.addUser(id, fname, lname1, lname2, email, password, date);
         return TRUE;

@@ -39,9 +39,9 @@ inline BOOL AddMedic(bool update) {
 
         // Assign values to variables for clarity
         std::string id = fieldValues[0];
-        std::string lname1 = fieldValues[1];
-        std::string lname2 = fieldValues[2];
-        std::string fname = fieldValues[3];
+        std::string fname = fieldValues[1];
+        std::string lname1 = fieldValues[2];
+        std::string lname2 = fieldValues[3];
         std::string email = fieldValues[4];
         std::string phone = fieldValues[5];
         std::string spec = fieldValues[6];
@@ -50,6 +50,7 @@ inline BOOL AddMedic(bool update) {
             AppData::Instance().medic_list.updateMedicById(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
         }
         else {
+
             AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
         }
 

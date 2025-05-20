@@ -37,6 +37,7 @@ inline std::string readRoomDate() {
     return date_str;
 }
 
+
 inline void addAppointmentSlots() {
 	// Array of IDC field IDs and corresponding variable pointers
 	const int idcFields[] = {
@@ -72,14 +73,25 @@ inline void addAppointmentSlots() {
 	std::string hour2_str = fieldValues[3];
 
 	std::string date = readRoomDate();
+    if (!dateValidation(date)) {
+        MessageBoxA(AppData::Instance().activeWindow, "Fecha Invalida", "Info", MB_OK | MB_ICONWARNING);
+        return;
+    }
+
     std::string id, hourid;
 	int hour1, hour2;
 	hour2 = StringToInt(hour2_str);
+    bool success;
 	for (hour1 = StringToInt(hour1_str); hour1 <= hour2; hour1++) {
 		hourid= std::to_string(hour1) + "-" + std::to_string(hour1 + 1);
 		id = selectedRoom + "-" + date + "-" + hourid;
-	    AppData::Instance().app_list.addAppointment(id, date, hourid,
+	    success = AppData::Instance().app_list.addAppointment(id, date, hourid,
 		    spec, selectedRoom, medicid, "", "DISPONIBLE", "", AppData::Instance().userId);
+        if (!success) {
+            std::string msg = "Consultorio " + selectedRoom + " ocupado de " + hourid + " en " + date;
+            MessageBoxA(AppData::Instance().activeWindow, msg.c_str(), "Info", MB_OK | MB_ICONWARNING);
+            return;
+        }
 	}
     MessageBox(AppData::Instance().activeWindow, L"Registro actualizado!", L"Info", MB_OK | MB_ICONINFORMATION);
     AppData::Instance().writeDebugLog();

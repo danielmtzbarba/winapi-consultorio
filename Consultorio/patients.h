@@ -71,8 +71,23 @@ public:
         const std::string& age,
         const std::string& userid) {
         PatientNode* newNode = new PatientNode(id, fname, lname1, lname2, email, phone, gender, age, userid);
+        if (isDuplicate(id)) {
+            return;
+        }
         append(newNode);
         saveToFile();
+        return;
+    }
+
+    bool isDuplicate(const std::string& id) {
+        PatientNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
     }
 
     bool updatePatientById(const std::string& id,

@@ -2,8 +2,6 @@
 
 #include "data.h"
 
-#include "win_rep_medicos2.cpp"
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     AppData::Instance().hInst = hInstance;
 

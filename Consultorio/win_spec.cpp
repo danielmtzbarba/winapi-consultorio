@@ -11,8 +11,7 @@ inline void AddRooms(int n, std::string prefix, std::string spec) {
     // Get the first three characters of the specialty, uppercase
     for (int i = 1; i <= n; ++i) {
         std::string id = prefix + std::to_string(i);
-        std::string userid = "admin";
-        AppData::Instance().room_list.addRoom(id, spec, userid);
+        AppData::Instance().room_list.addRoom(id, spec, AppData::Instance().userId);
     }
 }
 
@@ -68,8 +67,6 @@ inline INT_PTR CALLBACK WindowProcSpec(HWND hDlg, UINT message, WPARAM wParam, L
 			hList = GetDlgItem(hDlg, IDC_TXT_ESP);
             success = AddSpec(hList);
             if (success) {
-
-
 	            MessageBox(hDlg, L"Especialidad registrada!", L"Info", MB_OK);
             }
             else {

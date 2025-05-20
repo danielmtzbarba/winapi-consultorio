@@ -68,8 +68,23 @@ public:
         const std::string& spec,
         const std::string& userid) {
         MedicNode* newNode = new MedicNode(id, fname, lname1, lname2, email, phone, spec, userid);
+        if (isDuplicate(id)) {
+            return;
+        }
         append(newNode);
         saveToFile();
+        return;
+    }
+
+    bool isDuplicate(const std::string& id) {
+        MedicNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
     }
 
     bool updateMedicById(const std::string& id,
@@ -251,16 +266,16 @@ public:
     // Creates 10 sample medics and saves them to file
     void createSampleMedics() {
         clear();
-        addMedic("MED001", "Ana", "Gomez", "Lopez", "ana.gomez@clinic.com", "555-1001", "Cardiology", "admin");
-        addMedic("MED002", "Luis", "Martinez", "Perez", "luis.martinez@clinic.com", "555-1002", "Dermatology", "admin");
-        addMedic("MED003", "Maria", "Fernandez", "Ruiz", "maria.fernandez@clinic.com", "555-1003", "Neurology", "admin");
-        addMedic("MED004", "Carlos", "Sanchez", "Diaz", "carlos.sanchez@clinic.com", "555-1004", "Pediatrics", "admin");
-        addMedic("MED005", "Elena", "Torres", "Vega", "elena.torres@clinic.com", "555-1005", "Oncology", "admin");
-        addMedic("MED006", "Jorge", "Ramirez", "Castro", "jorge.ramirez@clinic.com", "555-1006", "Orthopedics", "admin");
-        addMedic("MED007", "Lucia", "Morales", "Navarro", "lucia.morales@clinic.com", "555-1007", "Psychiatry", "admin");
-        addMedic("MED008", "Miguel", "Alvarez", "Mendez", "miguel.alvarez@clinic.com", "555-1008", "Radiology", "admin");
-        addMedic("MED009", "Sofia", "Herrera", "Flores", "sofia.herrera@clinic.com", "555-1009", "Urology", "admin");
-        addMedic("MED010", "Pedro", "Jimenez", "Ortega", "pedro.jimenez@clinic.com", "555-1010", "Gastroenterology", "admin");
+        addMedic("MED001", "Ana", "Gomez", "Lopez", "ana.gomez@clinic.com", "555-1001", "Cardiologia", "admin");
+        addMedic("MED002", "Luis", "Martinez", "Perez", "luis.martinez@clinic.com", "555-1002", "Dermatologia", "admin");
+        addMedic("MED003", "Maria", "Fernandez", "Ruiz", "maria.fernandez@clinic.com", "555-1003", "Neurologia", "admin");
+        addMedic("MED004", "Carlos", "Sanchez", "Diaz", "carlos.sanchez@clinic.com", "555-1004", "Pediatria", "admin");
+        addMedic("MED005", "Elena", "Torres", "Vega", "elena.torres@clinic.com", "555-1005", "Oncologia", "admin");
+        addMedic("MED006", "Jorge", "Ramirez", "Castro", "jorge.ramirez@clinic.com", "555-1006", "Ortopedia", "admin");
+        addMedic("MED007", "Lucia", "Morales", "Navarro", "lucia.morales@clinic.com", "555-1007", "Psiquiatria", "admin");
+        addMedic("MED008", "Miguel", "Alvarez", "Mendez", "miguel.alvarez@clinic.com", "555-1008", "Radiologia", "admin");
+        addMedic("MED009", "Sofia", "Herrera", "Flores", "sofia.herrera@clinic.com", "555-1009", "Urologia", "admin");
+        addMedic("MED010", "Pedro", "Jimenez", "Ortega", "pedro.jimenez@clinic.com", "555-1010", "Gastroenterologia", "admin");
     }
 
     void printList() const {

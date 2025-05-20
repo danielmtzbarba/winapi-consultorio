@@ -62,7 +62,7 @@ public:
         head = tail = nullptr;
     }
 
-    void addAppointment(const std::string& id,
+    bool addAppointment(const std::string& id,
         const std::string& date,
         const std::string& hour,
         const std::string& spec,
@@ -75,8 +75,23 @@ public:
         AppointmentNode* newNode = new AppointmentNode(id, date, hour, spec, roomid,
             medicid, patientid, status,
             diagnosis, userid);
+        if (isDuplicate(id)) {
+            return false;
+        }
         append(newNode);
         saveToFile();
+        return true;
+    }
+
+    bool isDuplicate(const std::string& id) {
+        AppointmentNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
     }
 
     bool updateAppointmentById(const std::string& id,
@@ -129,11 +144,13 @@ public:
     }
    
     // SEARCH
-    std::vector<std::string> getAppointmentsByMedic(const std::string& medicid) const {
+    std::vector<std::string> getAppointmentsByMedic(const std::string& medicid,
+    const std::string& date) const {    
         std::vector<std::string> ids;
         AppointmentNode* current = head;
         while (current) {
             if (current->medicid == medicid &&
+                current->date == date &&
                 current->status == "DISPONIBLE") {
                 ids.push_back(current->hour);
             }

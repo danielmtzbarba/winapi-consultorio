@@ -51,8 +51,23 @@ public:
         const std::string& spec,
         const std::string& userid) {
         RoomNode* newNode = new RoomNode(id, spec, userid);
+        if (isDuplicate(id)) {
+            return;
+        }
         append(newNode);
         saveToFile();
+        return;
+    }
+
+    bool isDuplicate(const std::string& id) {
+        RoomNode* current = head;
+        while (current) {
+            if (current->id == id) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false; // not found
     }
 
     bool updateRoomById(const std::string& id,
