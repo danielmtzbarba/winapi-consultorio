@@ -1,5 +1,6 @@
 #include "data.h"
 #include "controls.h"
+#include "search.h"
 
 inline void GenerateAptReport() {
     HWND hListView = GetDlgItem(AppData::Instance().activeWindow, ID_LISTVIEW_REPORTE);
@@ -12,7 +13,13 @@ inline void GenerateAptReport() {
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
     
+    //SORT FIRST
+    sortByDate();
+
+    // THEN SEARCH
     std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDatesPat(patientid, date_start, date_end);
+
+    // POPULATE LISTVIEW
     for (size_t i = 0; i < foundApts.size(); ++i) {
         AppointmentNode* apt = foundApts[i];
         std::string medic_name = AppData::Instance().medic_list.getMedicNameById(apt->medicid);

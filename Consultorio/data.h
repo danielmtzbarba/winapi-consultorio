@@ -52,23 +52,15 @@ public:
         spec_list.loadFromFile();
         room_list.loadFromFile();
         app_list.loadFromFile();
-
-        // Only create samples if the list is empty
-        if (!patient_list.head) {
-            patient_list.createSamplePatients();
-        }
-        if (!medic_list.head) {
-            medic_list.createSampleMedics();
-        }
-        if (!spec_list.head) {
-            spec_list.createSampleSpecialties();
-        }
     }
 
     void writeDebugLog() {
         if (log.is_open()) {
-		    app_list.printList();
-            log << " ------- " << std::endl;
+            AppointmentNode* node = app_list.head;
+            while (node) {
+                log << node->date << std::endl;
+                node = node->next;
+            }
         }
     }
 
@@ -86,6 +78,7 @@ private:
     AppData() {
         log.open("log.txt", std::ios::app);
         loadDatabase();
+        //writeDebugLog();
     }
 };
 
