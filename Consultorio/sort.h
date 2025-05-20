@@ -68,3 +68,14 @@ inline void sortUsers() {
         AppData::Instance().user_list.swapData
     );
 }
+
+inline void sortMedics() {
+    quickSort<MedicNode>(
+        AppData::Instance().medic_list.head,
+        AppData::Instance().medic_list.tail,
+        [](MedicNode* a, MedicNode* b) {
+            return a->fname < b->fname;
+        },
+        AppData::Instance().medic_list.swapData
+    );
+}

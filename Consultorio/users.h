@@ -107,17 +107,6 @@ public:
         return false; // not found
     }
 
-    bool UserLoginById(const std::string& id, const std::string& password) {
-        UserNode* current = head;
-        while (current) {
-            if (current->id == id && current->password == password) {
-                return true;
-            }
-            current = current->next;
-        }
-        return false; // not found
-    }
-
     bool removeUserById(const std::string& id) {
         UserNode* current = head;
         while (current) {

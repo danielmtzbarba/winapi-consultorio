@@ -4,7 +4,7 @@
 
 // GENERIC **BINARY SEARCH** FOR A VECTOR OF NODEPOINTERS**
 template<typename NodeType, typename KeyType, typename Compare, typename Extractor>
-std::vector<NodeType*> binarySearchNodes(
+inline std::vector<NodeType*> binarySearchNodes(
     const std::vector<NodeType*>& sortedList,
     const KeyType& target,
     Compare comp,
@@ -52,6 +52,31 @@ std::vector<NodeType*> binarySearchNodes(
     return result;
 }
 
+template<typename NodeType, typename FieldType, typename Extractor>
+inline std::vector<NodeType*> rangeSearchNodes(
+    const std::vector<NodeType*>& sortedNodes,
+    const FieldType& start,
+    const FieldType& end,
+    Extractor getField
+) {
+    std::vector<NodeType*> result;
+
+    auto comp = [&](NodeType* node, const FieldType& value) {
+        return getField(node) < value;
+        };
+
+    // Find first node with field >= start
+    auto it = std::lower_bound(sortedNodes.begin(), sortedNodes.end(), start, comp);
+
+    // Collect all nodes with field <= end
+    while (it != sortedNodes.end() && getField(*it) <= end) {
+        result.push_back(*it);
+        ++it;
+    }
+
+    return result;
+}
+
 // SEARCHES
 
 // SEARCH USER FOR LOGIN
@@ -62,9 +87,9 @@ inline bool userLogin(std::string userid, std::string pass) {
     // SEARCH
     auto found = binarySearchNodes<UserNode, std::string>(
         AppData::Instance().user_list.toVector(),                   // Vector of sorted AppointmentNode*
-        userid,                                   // Target name
-        std::less<>(),                        // Default string comparator
-        [](UserNode* node) {           // Field extractor
+        userid,                                                    // Target name
+        std::less<>(),                                            // Default string comparator
+        [](UserNode* node) {                                     // Field extractor
             return node->id;
         }
     );
@@ -82,7 +107,24 @@ inline bool userLogin(std::string userid, std::string pass) {
 }
 
 // SEARCH MEDIC
-inline MedicNode* searchMedic(std::string id) {
+inline MedicNode* searchMedicById(std::string id) {
+    //SORT
+    sortMedics();
 
+    // SEARCH
+    auto found = binarySearchNodes<MedicNode, std::string>(
+        AppData::Instance().medic_list.toVector(),                   // Vector of sorted AppointmentNode*
+        id,                                                         // Target name
+        std::less<>(),                                             // Default string comparator
+        [](MedicNode* node) {                                     // Field extractor
+            return node->id;
+        }
+    );
+
+    if (found.empty()) {
+        //MEDIC NOT FOUND
+        MedicNode* result(nullptr);
+        return result;
+    }
+    return found[0];
 }
-
