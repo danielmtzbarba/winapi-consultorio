@@ -153,6 +153,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="rooms.h" />
+    <ClInclude Include="search.h" />
+    <ClInclude Include="sort.h" />
     <ClInclude Include="specs.h" />
     <ClInclude Include="users.h" />
   </ItemGroup>

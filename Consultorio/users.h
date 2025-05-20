@@ -185,14 +185,8 @@ public:
 
         inFile.close();
     }
-    
-    void createSampleUsers() {
-        clear();
-        std::string date = getTodayDate();
-        addUser("danielmtz", "Daniel", "Martinez", "Barba", "danielmtz@clinic.com", "1234", date);
-    }
 
-    std::vector<UserNode*> extractToVector() {
+    std::vector<UserNode*> toVector() {
         std::vector<UserNode*> nodes;
         UserNode* current = head;
         while (current) {
@@ -200,16 +194,5 @@ public:
             current = current->next;
         }
         return nodes;
-    }
-
-    void printList() const {
-        UserNode* current = head;
-        while (current) {
-            std::ofstream log("log.txt", std::ios::app);
-            log << "ID: " << current->id << " "
-                << current->password << "\n";
-
-            current = current->next;
-        }
     }
 };

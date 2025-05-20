@@ -1,5 +1,7 @@
 #include "data.h"
 #include "controls.h"
+#include "search.h"
+#include "sort.h"
 
 inline void GenerateMedicReport() {
 	const int idcFields[] = {
@@ -24,8 +26,14 @@ inline void GenerateMedicReport() {
 	std::string medicid = fieldValues[1];
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
-    
+   
+    //SORT FIRST
+    sortByDate();
+
+    // THEN SEARCH
     std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDatesMed(medicid, date_start, date_end);
+    
+    // Populate ListView
     for (size_t i = 0; i < foundApts.size(); ++i) {
         AppointmentNode* apt = foundApts[i];
         std::string medic_name = AppData::Instance().medic_list.getMedicNameById(apt->medicid);
