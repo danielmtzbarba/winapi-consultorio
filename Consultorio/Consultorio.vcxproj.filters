@@ -41,8 +41,6 @@
     <ClCompile Include="win_rep_med.cpp">
       <Filter>Window Logic</Filter>
     </ClCompile>
-    <ClCompile Include="win_rep_citas.cpp" />
-    <ClCompile Include="win_rep_medicos2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
