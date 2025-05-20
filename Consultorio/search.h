@@ -1,61 +1,68 @@
 #pragma once
 #include "data.h"
 
-inline void swapAppointmentData(AppointmentNode* a, AppointmentNode* b) {
-	std::swap(a->id, b->id);
-	std::swap(a->date, b->date);
-	std::swap(a->hour, b->hour);
-	std::swap(a->spec, b->spec);
-	std::swap(a->roomid, b->roomid);
-	std::swap(a->medicid, b->medicid);
-	std::swap(a->patientid, b->patientid);
-	std::swap(a->status, b->status);
-	std::swap(a->diagnosis, b->diagnosis);
-	std::swap(a->userid, b->userid);
-}
+// GENERIC **BINARY SEARCH** FOR A VECTOR OF NODEPOINTERS**
+template<typename NodeType, typename KeyType, typename Compare, typename Extractor>
+std::vector<NodeType*> binarySearchNodes(
+    const std::vector<NodeType*>& sortedList,
+    const KeyType& target,
+    Compare comp,
+    Extractor extract
+) {
+    std::vector<NodeType*> result;
 
-template<typename NodeType, typename Compare>
-NodeType* partition(NodeType* low, NodeType* high, Compare comp) {
-    auto pivot = high;
-    NodeType* i = low->prev;
+    int left = 0;
+    int right = static_cast<int>(sortedList.size()) - 1;
+    int foundIndex = -1;
 
-    for (NodeType* j = low; j != high; j = j->next) {
-        if (comp(j, pivot)) {
-			if (i == nullptr)
-				i = low;
-			else
-				i = i->next;
-            swapAppointmentData(static_cast<AppointmentNode*>(i), static_cast<AppointmentNode*>(j));
+    // Binary search
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        KeyType midVal = extract(sortedList[mid]);
+
+        if (!comp(midVal, target) && !comp(target, midVal)) {
+            foundIndex = mid;
+            break;
+        }
+        else if (comp(midVal, target)) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
         }
     }
 
-    if (i == nullptr)
-        i = low;
-    else
-        i = i->next;
-    swapAppointmentData(static_cast<AppointmentNode*>(i), static_cast<AppointmentNode*>(high));
+    if (foundIndex == -1) return result;
 
-    return i;
-}
-
-template<typename NodeType, typename Compare>
-void quickSort(NodeType* low, NodeType* high, Compare comp) {
-    if (high != nullptr && low != high && low != high->next) {
-        NodeType* p = partition(low, high, comp);
-        if (p == nullptr) return;  // prevent crash
-
-        // Log the recursive ranges
-        quickSort(low, p->prev, comp);
-        quickSort(p->next, high, comp);
+    // Expand left
+    int i = foundIndex;
+    while (i >= 0 && !comp(extract(sortedList[i]), target) && !comp(target, extract(sortedList[i]))) {
+        result.push_back(sortedList[i]);
+        i--;
     }
+
+    // Expand right
+    i = foundIndex + 1;
+    while (i < sortedList.size() && !comp(extract(sortedList[i]), target) && !comp(target, extract(sortedList[i]))) {
+        result.push_back(sortedList[i]);
+        i++;
+    }
+
+    return result;
 }
 
-inline void sortByDate() {
-    quickSort(AppData::Instance().app_list.head, AppData::Instance().app_list.tail,
-        [](AppointmentNode* a, AppointmentNode* b) {
-            return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
+// SEARCHES
+inline UserNode* searchUser(std::string userid) {
+    AppData::Instance().user_list;
+
+    auto found = binarySearchNodes<UserNode, std::string>(
+        AppData::Instance().user_list.toVector(),                   // Vector of sorted AppointmentNode*
+        userid,                                   // Target name
+        std::less<>(),                        // Default string comparator
+        [](UserNode* node) {           // Field extractor
+            return node->id;
         }
     );
+    return found[0];
 }
-
 

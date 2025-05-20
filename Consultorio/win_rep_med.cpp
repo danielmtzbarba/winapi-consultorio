@@ -1,6 +1,7 @@
 #include "data.h"
 #include "controls.h"
 #include "search.h"
+#include "sort.h"
 
 inline void GenerateMedicReport() {
 	const int idcFields[] = {

@@ -313,16 +313,18 @@ public:
 
         inFile.close();
     }
-
-
-    //DEBUG
-    void printList() const {
-        AppointmentNode* current = head;
-        while (current) {
-            std::ofstream log("log.txt", std::ios::app);
-            log << "ID: " << current->id << "\n";
-            current = current->next;
-        }
-    }
-
+    
+    // Swap for sort, **DONT SWAP POINTERS
+	static void swapAppointmentData(AppointmentNode* a, AppointmentNode* b) {
+		std::swap(a->id, b->id);
+		std::swap(a->date, b->date);
+		std::swap(a->hour, b->hour);
+		std::swap(a->spec, b->spec);
+		std::swap(a->roomid, b->roomid);
+		std::swap(a->medicid, b->medicid);
+		std::swap(a->patientid, b->patientid);
+		std::swap(a->status, b->status);
+		std::swap(a->diagnosis, b->diagnosis);
+		std::swap(a->userid, b->userid);
+	}
 };

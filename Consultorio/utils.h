@@ -103,7 +103,7 @@ inline std::string getWeekDay(const std::string & fecha) {
 	std::mktime(&time_in); // Normaliza la estructura y calcula tm_wday
 
 	static const std::vector<std::string> dias = {
-		"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+		"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"
 	};
 
 	return dias[time_in.tm_wday];

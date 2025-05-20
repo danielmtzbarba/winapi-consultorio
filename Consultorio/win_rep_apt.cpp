@@ -1,6 +1,7 @@
 #include "data.h"
 #include "controls.h"
 #include "search.h"
+#include "sort.h"
 
 inline void GenerateAptReport() {
     HWND hListView = GetDlgItem(AppData::Instance().activeWindow, ID_LISTVIEW_REPORTE);
