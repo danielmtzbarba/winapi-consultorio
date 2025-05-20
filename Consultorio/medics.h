@@ -113,18 +113,6 @@ public:
         return false; // not found
     }
     
-    MedicNode* searchMedicById(const std::string id) {
-        MedicNode* result(nullptr);
-        MedicNode* current = head;
-        while (current) {
-            if (current->id == id) {
-                result = current;
-                return result;
-            }
-            current = current->next;
-        }
-        return result; // not found
-    }
     std::string getMedicNameById(const std::string id) {
         std::string name;
         MedicNode* current = head;
@@ -220,7 +208,7 @@ public:
         inFile.close();
     }
 
-    std::vector<MedicNode*> extractToVector() {
+    std::vector<MedicNode*> toVector() {
         std::vector<MedicNode*> nodes;
         MedicNode* current = head;
         while (current) {
@@ -229,7 +217,8 @@ public:
         }
         return nodes;
     }
-    void swapNodeData(MedicNode* a, MedicNode* b) {
+
+    static void swapData(MedicNode* a, MedicNode* b) {
         std::swap(a->id, b->id);
         std::swap(a->fname, b->fname);
         std::swap(a->lname1, b->lname1);
@@ -238,56 +227,5 @@ public:
         std::swap(a->phone, b->phone);
         std::swap(a->spec, b->spec);
         std::swap(a->userid, b->userid);
-    }
-
-    MedicNode* partition(MedicNode* low, MedicNode* high) {
-        std::string pivot = high->lname1;
-        MedicNode* i = low->prev;
-
-        for (MedicNode* j = low; j != high; j = j->next) {
-            if (j->lname1 < pivot) {
-                i = (i == nullptr) ? low : i->next;
-                swapNodeData(i, j);
-            }
-        }
-        i = (i == nullptr) ? low : i->next;
-        swapNodeData(i, high);
-        return i;
-    }
-
-    void quickSort(MedicNode* low, MedicNode* high) {
-        if (low && high && low != high && low != high->next) {
-            MedicNode* pivot = partition(low, high);
-            quickSort(low, pivot->prev);
-            quickSort(pivot->next, high);
-        }
-    }
-
-    // Creates 10 sample medics and saves them to file
-    void createSampleMedics() {
-        clear();
-        addMedic("MED001", "Ana", "Gomez", "Lopez", "ana.gomez@clinic.com", "555-1001", "Cardiologia", "admin");
-        addMedic("MED002", "Luis", "Martinez", "Perez", "luis.martinez@clinic.com", "555-1002", "Dermatologia", "admin");
-        addMedic("MED003", "Maria", "Fernandez", "Ruiz", "maria.fernandez@clinic.com", "555-1003", "Neurologia", "admin");
-        addMedic("MED004", "Carlos", "Sanchez", "Diaz", "carlos.sanchez@clinic.com", "555-1004", "Pediatria", "admin");
-        addMedic("MED005", "Elena", "Torres", "Vega", "elena.torres@clinic.com", "555-1005", "Oncologia", "admin");
-        addMedic("MED006", "Jorge", "Ramirez", "Castro", "jorge.ramirez@clinic.com", "555-1006", "Ortopedia", "admin");
-        addMedic("MED007", "Lucia", "Morales", "Navarro", "lucia.morales@clinic.com", "555-1007", "Psiquiatria", "admin");
-        addMedic("MED008", "Miguel", "Alvarez", "Mendez", "miguel.alvarez@clinic.com", "555-1008", "Radiologia", "admin");
-        addMedic("MED009", "Sofia", "Herrera", "Flores", "sofia.herrera@clinic.com", "555-1009", "Urologia", "admin");
-        addMedic("MED010", "Pedro", "Jimenez", "Ortega", "pedro.jimenez@clinic.com", "555-1010", "Gastroenterologia", "admin");
-    }
-
-    void printList() const {
-        MedicNode* current = head;
-        while (current) {
-            std::ofstream log("log.txt", std::ios::app);
-            log << "ID: " << current->id << ", Name: "
-                << current->fname << " " << current->lname1 << " " << current->lname2
-                << ", Email: " << current->email
-                << ", Phone: " << current->phone
-                << ", Specialty: " << current->spec << "\n";
-            current = current->next;
-        }
     }
 };

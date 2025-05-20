@@ -202,9 +202,9 @@ inline INT_PTR CALLBACK WindowProcCitas(HWND hDlg, UINT message, WPARAM wParam, 
                 SendMessage(hCombo, CB_GETLBTEXT, selIndex, (LPARAM)buffer);
                 std::vector<std::string> foundMeds = AppData::Instance().medic_list.getMedicIdsBySpec(wcharToChar(buffer));
                 hComboMed = GetDlgItem(hDlg, IDC_CBX_CIT_MEDICO);
+                SendMessage(hComboMed, CB_RESETCONTENT, 0, 0);
 				for (const auto& id : foundMeds) {
 					std::wstring wname = StringToWString(id); // Use the utility!
-                    SendMessage(hComboMed, CB_RESETCONTENT, 0, 0);
 					SendMessage(hComboMed, CB_ADDSTRING, 0, (LPARAM)wname.c_str());
 				}
             }
