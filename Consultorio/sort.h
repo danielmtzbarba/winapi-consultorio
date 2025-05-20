@@ -54,6 +54,17 @@ inline void sortByDate() {
         [](AppointmentNode* a, AppointmentNode* b) {
             return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
         },
-        AppData::Instance().app_list.swapAppointmentData
+        AppData::Instance().app_list.swapData
+    );
+}
+
+inline void sortUsers() {
+    quickSort<UserNode>(
+        AppData::Instance().user_list.head,
+        AppData::Instance().user_list.tail,
+        [](UserNode* a, UserNode* b) {
+            return a->id < b->id;
+        },
+        AppData::Instance().user_list.swapData
     );
 }

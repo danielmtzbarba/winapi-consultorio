@@ -1,5 +1,6 @@
 #include "data.h"
 #include "controls.h"
+#include "search.h"
 
 inline bool Login(HWND hDlg) {
 	const int idcFields[] = {
@@ -21,16 +22,15 @@ inline bool Login(HWND hDlg) {
 	// Assign values to variables for clarity
 	std::string id = fieldValues[0];
 	std::string password = fieldValues[1];
-
-	if (AppData::Instance().user_list.UserLoginById(id, password)){
+    
+    if (userLogin(id, password)) {
         AppData::Instance().userId = id;
         return TRUE;
-
-	}
-    else {
+    } else {
 		MessageBox(hDlg, L"Usuario o contraseña incorrectos.", L"Warning", MB_OK | MB_ICONWARNING);
 		return FALSE;
     }
+
     return FALSE;
 }
 
