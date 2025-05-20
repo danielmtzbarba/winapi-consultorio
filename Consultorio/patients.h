@@ -231,6 +231,19 @@ public:
         inFile.close();
     }
 
+    // Swap for sort, **DONT SWAP POINTERS
+	static void swapData(PatientNode* a, PatientNode* b) {
+		std::swap(a->id, b->id);
+		std::swap(a->fname, b->fname);
+        std::swap(a->lname1, b->lname1);
+		std::swap(a->lname2, b->lname2);
+		std::swap(a->email, b->email);
+		std::swap(a->phone, b->phone);
+		std::swap(a->gender, b->gender);
+		std::swap(a->age, b->age);
+		std::swap(a->userid, b->userid);
+	}
+
     std::vector<PatientNode*> extractToVector() {
         std::vector<PatientNode*> nodes;
         PatientNode* current = head;
@@ -239,17 +252,5 @@ public:
             current = current->next;
         }
         return nodes;
-    }
-
-    void printList() const {
-        PatientNode* current = head;
-        while (current) {
-            std::ofstream log("log.txt", std::ios::app);
-            log << "ID: " << current->id << ", Name: "
-                << current->fname << " " << current->lname1 << " " << current->lname2
-                << ", Email: " << current->email
-                << ", Phone: " << current->phone << "\n";
-            current = current->next;
-        }
     }
 };

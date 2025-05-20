@@ -1,11 +1,15 @@
 #include "data.h"
 #include "controls.h"
+#include "search.h"
 
 inline void searchID() {
     std::string id;
 
     id =  ReadTextBox(IDC_TXT_CON_CEDULA);
-    MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
+
+    // BINARY SEARCH
+    MedicNode* found =  searchMedicById(id);
+
     HWND hList = GetDlgItem(AppData::Instance().activeWindow, IDC_LST_CONSULTORIOSGRANDE);
 
     if (!found) {

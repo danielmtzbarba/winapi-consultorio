@@ -315,7 +315,7 @@ public:
     }
     
     // Swap for sort, **DONT SWAP POINTERS
-	static void swapAppointmentData(AppointmentNode* a, AppointmentNode* b) {
+	static void swapData(AppointmentNode* a, AppointmentNode* b) {
 		std::swap(a->id, b->id);
 		std::swap(a->date, b->date);
 		std::swap(a->hour, b->hour);
@@ -327,4 +327,14 @@ public:
 		std::swap(a->diagnosis, b->diagnosis);
 		std::swap(a->userid, b->userid);
 	}
+
+    std::vector<AppointmentNode*> toVector() {
+        std::vector<AppointmentNode*> nodes;
+        AppointmentNode* current = head;
+        while (current) {
+            nodes.push_back(current);
+            current = current->next;
+        }
+        return nodes;
+    }
 };

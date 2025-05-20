@@ -113,18 +113,6 @@ public:
         return false; // not found
     }
     
-    MedicNode* searchMedicById(const std::string id) {
-        MedicNode* result(nullptr);
-        MedicNode* current = head;
-        while (current) {
-            if (current->id == id) {
-                result = current;
-                return result;
-            }
-            current = current->next;
-        }
-        return result; // not found
-    }
     std::string getMedicNameById(const std::string id) {
         std::string name;
         MedicNode* current = head;
@@ -230,7 +218,7 @@ public:
         return nodes;
     }
 
-    void swapNodeData(MedicNode* a, MedicNode* b) {
+    static void swapData(MedicNode* a, MedicNode* b) {
         std::swap(a->id, b->id);
         std::swap(a->fname, b->fname);
         std::swap(a->lname1, b->lname1);

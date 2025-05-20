@@ -1,5 +1,6 @@
 #include "data.h"
 #include "controls.h"
+#include "search.h"
 
 inline void ClearMedicFields() {
     SetTextBox(IDC_TXT_MED_CEDULA, "");
@@ -70,7 +71,10 @@ inline void removeMedic() {
 inline void searchMedic() {
     std::string id;
     id =  ReadTextBox(IDC_TXT_MED_CEDULA);
-    MedicNode* found = AppData::Instance().medic_list.searchMedicById(id);
+    
+    // BINARY SEARCH
+    MedicNode* found =  searchMedicById(id);
+
     if (!found) {
         ClearMedicFields();
 		MessageBox(AppData::Instance().activeWindow, L"Cedula no registrada!", L"Error", MB_OK | MB_ICONERROR);

@@ -70,6 +70,12 @@
     <ClInclude Include="controls.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="search.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="sort.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window Logic">

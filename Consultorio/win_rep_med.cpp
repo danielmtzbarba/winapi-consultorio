@@ -30,9 +30,34 @@ inline void GenerateMedicReport() {
     //SORT FIRST
     sortByDate();
 
-    // THEN SEARCH
-    std::vector<AppointmentNode*> foundApts = AppData::Instance().app_list.getAppointmentsByDatesMed(medicid, date_start, date_end);
-    
+    // BINARY SEARCH FOR MEDICID
+    auto medicApts = binarySearchNodes<AppointmentNode, std::string>(
+        AppData::Instance().app_list.toVector(),
+        medicid,
+        std::less<>(),    
+        [](AppointmentNode* node) { return node->medicid; }
+    );
+
+    // REMOVE UNDESIRED APTS
+    auto it = std::remove_if(medicApts.begin(), medicApts.end(),
+        [](AppointmentNode* node) {
+            return node->status == "DISPONIBLE";  // Replace with your desired status
+        });
+    medicApts.erase(it, medicApts.end());
+
+    // SORT BEFORE SECOND SEARCH
+    std::sort(medicApts.begin(), medicApts.end(), [](AppointmentNode* a, AppointmentNode* b) {
+        return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
+        });
+
+    // BINARY SEARCH FOR DATSE
+    auto foundApts = rangeSearchNodes<AppointmentNode, std::tuple<int, int, int>>(
+        medicApts,
+        dateStrToIntTuple(date_start),
+        dateStrToIntTuple(date_end),
+        [](AppointmentNode* node) { return dateStrToIntTuple(node->date); }
+    );
+
     // Populate ListView
     for (size_t i = 0; i < foundApts.size(); ++i) {
         AppointmentNode* apt = foundApts[i];

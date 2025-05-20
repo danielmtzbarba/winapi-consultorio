@@ -107,17 +107,6 @@ public:
         return false; // not found
     }
 
-    bool UserLoginById(const std::string& id, const std::string& password) {
-        UserNode* current = head;
-        while (current) {
-            if (current->id == id && current->password == password) {
-                return true;
-            }
-            current = current->next;
-        }
-        return false; // not found
-    }
-
     bool removeUserById(const std::string& id) {
         UserNode* current = head;
         while (current) {
@@ -185,6 +174,17 @@ public:
 
         inFile.close();
     }
+
+    // Swap for sort, **DONT SWAP POINTERS
+	static void swapData(UserNode* a, UserNode* b) {
+		std::swap(a->id, b->id);
+		std::swap(a->fname, b->fname);
+        std::swap(a->lname1, b->lname1);
+		std::swap(a->lname2, b->lname2);
+		std::swap(a->email, b->email);
+		std::swap(a->password, b->password);
+		std::swap(a->date, b->date);
+	}
 
     std::vector<UserNode*> toVector() {
         std::vector<UserNode*> nodes;
