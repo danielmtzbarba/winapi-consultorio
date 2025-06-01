@@ -34,6 +34,7 @@ inline BOOL AddMedic(bool update) {
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
+			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return FALSE;
 		}
 	}
@@ -51,8 +52,11 @@ inline BOOL AddMedic(bool update) {
             AppData::Instance().medic_list.updateMedicById(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
         }
         else {
-
-            AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
+            bool isAdded = AppData::Instance().medic_list.addMedic(id, fname, lname1, lname2, email, phone, spec, AppData::Instance().userId);
+            if (!isAdded) {
+			    MessageBox(AppData::Instance().activeWindow, L"Cedula ya registrada!", L"Error", MB_OK | MB_ICONERROR);
+                return FALSE;
+            }
         }
 
         return TRUE;
@@ -107,10 +111,6 @@ inline INT_PTR CALLBACK WindowProcMedic(HWND hDlg, UINT message, WPARAM wParam, 
             success = AddMedic(false);
             if (success) {
 	            MessageBox(hDlg, L"Médico registrado!", L"Info", MB_OK);
-            }
-            else {
-
-			MessageBox(hDlg, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
             }
             break;
             return TRUE;

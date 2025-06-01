@@ -61,7 +61,7 @@ public:
         head = tail = nullptr;
     }
 
-    void addPatient(const std::string& id,
+    bool addPatient(const std::string& id,
         const std::string& fname,
         const std::string& lname1,
         const std::string& lname2,
@@ -72,11 +72,11 @@ public:
         const std::string& userid) {
         PatientNode* newNode = new PatientNode(id, fname, lname1, lname2, email, phone, gender, age, userid);
         if (isDuplicate(id)) {
-            return;
+            return FALSE;
         }
         append(newNode);
         saveToFile();
-        return;
+        return TRUE;
     }
 
     bool isDuplicate(const std::string& id) {

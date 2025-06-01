@@ -54,7 +54,7 @@ inline BOOL AddPatient(bool update) {
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
-
+			MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return FALSE;
 		}
 	}
@@ -74,7 +74,11 @@ inline BOOL AddPatient(bool update) {
             AppData::Instance().patient_list.updatePatientById(id, fname, lname1, lname2, email, phone, gender, age, AppData::Instance().userId);
         }
         else {
-            AppData::Instance().patient_list.addPatient(id, fname, lname1, lname2, email, phone, gender, age, AppData::Instance().userId);
+            bool isAdded = AppData::Instance().patient_list.addPatient(id, fname, lname1, lname2, email, phone, gender, age, AppData::Instance().userId);
+            if (!isAdded) {
+			    MessageBox(AppData::Instance().activeWindow, L"ID de Paciente ya registrado!", L"Error", MB_OK | MB_ICONERROR);
+                return FALSE;
+            }
         }
 
         return TRUE;
@@ -110,10 +114,6 @@ inline INT_PTR CALLBACK WindowProcPatient(HWND hDlg, UINT message, WPARAM wParam
             success = AddPatient(false);
             if (success) {
 	            MessageBox(hDlg, L"Paciente registrado!", L"Info", MB_OK);
-            }
-            else {
-
-			MessageBox(hDlg, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
             }
             break;
             return TRUE;
