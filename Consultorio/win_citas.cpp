@@ -6,8 +6,8 @@ inline std::string readAppDate() {
     HWND hDatePicker = GetDlgItem(AppData::Instance().activeWindow, IDC_DTP_CIT_FECHA);
     std::string date_str;
     if (SendMessage(hDatePicker, DTM_GETSYSTEMTIME, 0, (LPARAM)&st) == GDT_VALID) {
-        // Now `st` contains the selected date/time.
-        // Example: convert to string
+        // `st` contiene la fecha/hora
+        // Ejemplo: lo convierte a string
         wchar_t buffer[100];
         swprintf(buffer, 100, L"%02d-%02d-%04d", st.wDay, st.wMonth, st.wYear);
         date_str = wstringToString(buffer);
@@ -23,7 +23,7 @@ inline void checkAvailability() {
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
 
-	// Read and check each field
+	// lee y checa cada archivo
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
@@ -32,7 +32,7 @@ inline void checkAvailability() {
 		}
 	}
 
-	// Assign values to variables for clarity
+	// Se asigna un valor a la variable
 	std::string spec = fieldValues[0];
 	std::string medicid = fieldValues[1];
     std::string date = readAppDate();
@@ -45,7 +45,7 @@ inline void checkAvailability() {
 	std::vector<std::string> foundHours = AppData::Instance().app_list.getAppointmentsByMedic(medicid, date);
 	HWND hComboHours = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_CIT_HORA);
 
-    // Clear existing items
+    // Limpia las listbox de las horas
     SendMessage(hComboHours, CB_RESETCONTENT, 0, 0);
 
     if (foundHours.empty()) {
@@ -54,21 +54,21 @@ inline void checkAvailability() {
     else {
         MessageBox(AppData::Instance().activeWindow, L"Las horas disponibles han sido actualizadas.", L"Disponibilidad actualizada", MB_OK | MB_ICONINFORMATION);
 
-        for (const std::string& hourStr : foundHours) {
+        for (const std::string& hourStr : foundHours) {//convierte el string a un numero entero
             try {
                 int startHour = std::stoi(hourStr);
-                std::string range = std::to_string(startHour) + "-" + std::to_string(startHour + 1);
+                std::string range = std::to_string(startHour) + "-" + std::to_string(startHour + 1);//Aumenta una hora y lo hace un rango "5-6"
 
-                // Convert to wide string before adding to ComboBox
-                std::wstring wideRange(range.begin(), range.end());
-                SendMessage(hComboHours, CB_ADDSTRING, 0, (LPARAM)wideRange.c_str());
+                // Lo convierte en widestring antes de meterlo al ComboBox
+                std::wstring wideRange(range.begin(), range.end());//convierte el string a un Wstring
+                SendMessage(hComboHours, CB_ADDSTRING, 0, (LPARAM)wideRange.c_str());//envia el texto a la combobox como un menu desplegable
             }
             catch (...) {
-                // Handle invalid hour strings silently or log
+                
             }
         }
     }
-    // Select the first item (index 0)
+    // Selecciona el primer objeto
     SendMessage(hComboHours, CB_SETCURSEL, 0, 0);
 }
 
@@ -82,7 +82,7 @@ inline void checkAppointment() {
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
 
-	// Read and check each field
+	// Lee y verifica el archivo
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
@@ -91,7 +91,7 @@ inline void checkAppointment() {
 		}
 	}
 
-	// Assign values to variables for clarity
+	// Asignamos valores a las variables
 	std::string spec = fieldValues[0];
 	std::string medicid = fieldValues[1];
 	std::string hour = fieldValues[2];
@@ -126,7 +126,7 @@ inline void searchPatientAppointments() {
     HWND hComboApp = GetDlgItem(AppData::Instance().activeWindow, IDC_CBX_CIT_PACIENTE3);
     SendMessage(hComboApp, CB_RESETCONTENT, 0, 0);
 	for (const std::string& app : foundAppointments) {
-			// Convert to wide string before adding to ComboBox
+			// lo convierte a un wString antes de agregar valores
 			std::wstring wideRange(app.begin(), app.end());
 			SendMessage(hComboApp, CB_ADDSTRING, 0, (LPARAM)wideRange.c_str());
 		}
@@ -143,7 +143,7 @@ inline void updateAppointment() {
 
 	std::string fieldValues[sizeof(idcFields)/sizeof(idcFields[0])];
 
-	// Read and check each field
+	// Lee y checa cada arhivo
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
@@ -152,7 +152,7 @@ inline void updateAppointment() {
 		}
 	}
 
-	// Assign values to variables for clarity
+	// Asigna valores 
 	std::string patientid = fieldValues[0];
 	std::string aptid = fieldValues[1];
 	std::string status = fieldValues[2];
@@ -204,7 +204,7 @@ inline INT_PTR CALLBACK WindowProcCitas(HWND hDlg, UINT message, WPARAM wParam, 
                 hComboMed = GetDlgItem(hDlg, IDC_CBX_CIT_MEDICO);
                 SendMessage(hComboMed, CB_RESETCONTENT, 0, 0);
 				for (const auto& id : foundMeds) {
-					std::wstring wname = StringToWString(id); // Use the utility!
+					std::wstring wname = StringToWString(id); 
 					SendMessage(hComboMed, CB_ADDSTRING, 0, (LPARAM)wname.c_str());
 				}
             }

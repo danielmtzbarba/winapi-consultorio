@@ -21,7 +21,7 @@ inline void GenerateAptReport() {
     auto patientApts = binarySearchNodes<AppointmentNode, std::string>(
         AppData::Instance().app_list.toVector(),
         patientid,
-        std::less<>(),    
+        std::equal_to<>(),    
         [](AppointmentNode* node) { return node->patientid; }
     );
 

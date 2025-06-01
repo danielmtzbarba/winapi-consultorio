@@ -31,7 +31,7 @@ inline BOOL AddSpec(HWND hList) {
 }
 
 inline void removeSpec(HWND hList) {
-	std::string spec = ReadTextBox(IDC_TXT_ESP_EDICION);
+	std::string spec = ReadTextBox(IDC_TXT_ESP_EDICION); //se le el textbox
 
     int index = (int)SendMessage(hList, LB_GETCURSEL, 0, 0);
 
