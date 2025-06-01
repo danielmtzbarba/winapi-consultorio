@@ -28,7 +28,7 @@ inline void GenerateMedicReport() {
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
    
     //SORT FIRST
-    sortByDate();
+    sortAppointmentsByDateQuick();
 
     // BINARY SEARCH FOR MEDICID
     auto medicApts = binarySearchNodes<AppointmentNode, std::string>(
@@ -37,6 +37,7 @@ inline void GenerateMedicReport() {
         std::less<>(),    
         [](AppointmentNode* node) { return node->medicid; }
     );
+    /*
 
     // REMOVE UNDESIRED APTS
     auto it = std::remove_if(medicApts.begin(), medicApts.end(),
@@ -50,13 +51,18 @@ inline void GenerateMedicReport() {
         return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
         });
 
-    // BINARY SEARCH FOR DATSE
+    */
+
+    // BINARY SEARCH FOR DATES
     auto foundApts = rangeSearchNodes<AppointmentNode, std::tuple<int, int, int>>(
         medicApts,
         dateStrToIntTuple(date_start),
         dateStrToIntTuple(date_end),
         [](AppointmentNode* node) { return dateStrToIntTuple(node->date); }
     );
+
+   // CLEAN LISTVIEW
+    ListView_DeleteAllItems(hListView);
 
     // Populate ListView
     for (size_t i = 0; i < foundApts.size(); ++i) {

@@ -15,7 +15,7 @@ inline void GenerateAptReport() {
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
     
     //SORT FIRST
-    sortByDate();
+    sortAppointmentsByDateQuick();
 
     // BINARY SEARCH FOR PATIENTID
     auto patientApts = binarySearchNodes<AppointmentNode, std::string>(
@@ -37,6 +37,10 @@ inline void GenerateAptReport() {
         dateStrToIntTuple(date_end),
         [](AppointmentNode* node) { return dateStrToIntTuple(node->date); }
     );
+    
+   // CLEAN LISTVIEW
+    ListView_DeleteAllItems(hListView);
+
 
     // POPULATE LISTVIEW
     for (size_t i = 0; i < foundApts.size(); ++i) {
@@ -90,6 +94,7 @@ inline INT_PTR CALLBACK WindowProcReportApt(HWND hDlg, UINT message, WPARAM wPar
             return TRUE;
 
         case IDC_BTN_REPMED_BUSCAR:
+
             GenerateAptReport();
             return TRUE;
 

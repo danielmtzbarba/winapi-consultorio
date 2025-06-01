@@ -109,7 +109,7 @@ inline bool userLogin(std::string userid, std::string pass) {
 // SEARCH MEDIC
 inline MedicNode* searchMedicById(std::string id) {
     //SORT
-    sortMedics();
+    sortMedicsById();
 
     // SEARCH
     auto found = binarySearchNodes<MedicNode, std::string>(

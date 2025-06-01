@@ -105,6 +105,12 @@ inline void checkAppointment() {
     }
     AppointmentNode* nodeptr = AppData::Instance().app_list.getAppointmentPtr(medicid, date, hour);
     if (nodeptr) {
+        // ******* VERIFICACION ADICIONAL: Asegurarse de que no haya sido reservado previamente
+        if (nodeptr->status == "RESERVADA") {
+		    MessageBox(AppData::Instance().activeWindow, L"Horario ya reservado. Consultar disponibilidad nuevamente!", L"Error", MB_OK | MB_ICONERROR);
+            return;
+        }
+
         nodeptr->patientid = patientid;
         nodeptr->status = "RESERVADA";
         AppData::Instance().app_list.saveToFile();

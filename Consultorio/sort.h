@@ -83,7 +83,7 @@ void heapSort(NodeType* head, NodeType* tail, Compare comp, SwapFunc swapData) {
 // SEARCH FUNCTIONS FOR PROGRAM
 
 // QUICKSORT
-inline void sortByDate() {
+inline void sortAppointmentsByDateQuick() {
     quickSort<AppointmentNode>(
         AppData::Instance().app_list.head,
         AppData::Instance().app_list.tail,
@@ -116,12 +116,13 @@ inline void sortUsers() {
     );
 }
 
-inline void sortMedics() {
+inline void sortMedicsById() {
     quickSort<MedicNode>(
         AppData::Instance().medic_list.head,
         AppData::Instance().medic_list.tail,
         [](MedicNode* a, MedicNode* b) {
-            return a->fname < b->fname;
+        // ******* BUGFIX: ORDENAMIENTO CON BASE EN ID EN VEZ DE FNAME
+            return a->id < b->id;
         },
         AppData::Instance().medic_list.swapData
     );

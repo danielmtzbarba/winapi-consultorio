@@ -1,0 +1,42 @@
+Manual para Test Interfaz de Consultorios:
+
+1. Registrar Usuario
+
+2. Iniciar Sesión
+
+3. Registrar Especialidades
+
+4. Registrar Medicos
+
+5. Registrar horas en Consultorios
+	 NOTA: Registrar horarios en formato 24 hrs. i.e. 12 - 14
+
+6. Registrar pacientes
+
+7. Agendar cita
+
+8. Actualizar citas: 
+   - Cambiar Estatus
+   - Agregar diagnostico
+
+
+TESTS INTERFAZ
+
+* Registrar horas consultorios *
+1. Buscar diferentes medicos
+ ** BUG: Medico no encontrado.
+
+
+2. Registrar disponibilidad
+
+* Reporte Medico *
+1. Agendar citas: Diferentes pacientes, Mismo medico 
+2. Generar reporte medico
+
+* Reporte Paciente *
+1. Agendar citas: Mismo paciente, diferentes medicos
+2. Generar reporte paciente
+
+
+
+

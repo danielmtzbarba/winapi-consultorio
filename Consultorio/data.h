@@ -78,6 +78,8 @@ private:
     AppData() {
         log.open("log.txt", std::ios::app);
         loadDatabase();
+        medic_list.createSampleMedics();
+        patient_list.createSamplePatients();
         //writeDebugLog();
     }
 };

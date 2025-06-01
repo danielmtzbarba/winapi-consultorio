@@ -62,11 +62,17 @@ inline void addAppointmentSlots() {
         SendMessage(hList, LB_GETTEXT, index, (LPARAM)buffer);
         selectedRoom = wcharToChar(buffer);
     }
+    else {
+        // ******* VERIFICACION ADICIONAL: Asegurarse de que se seleccione consultorio
+		MessageBox(AppData::Instance().activeWindow, L"Seleccione consultorio!", L"Error", MB_OK | MB_ICONERROR);
+        return;
+    }
 
 	// Read and check each field
     for (size_t i = 0; i < sizeof(idcFields) / sizeof(idcFields[0]); ++i) {
         fieldValues[i] = ReadTextBox(idcFields[i]);
 		if (IsEmpty(fieldValues[i])) {
+		    MessageBox(AppData::Instance().activeWindow, L"Campos vacios!", L"Error", MB_OK | MB_ICONERROR);
 			return;
 		}
 	}
@@ -85,7 +91,7 @@ inline void addAppointmentSlots() {
     std::string id, hourid;
 	int hour1, hour2;
 	hour2 = StringToInt(hour2_str);
-    bool success;
+    bool success = FALSE;
 	for (hour1 = StringToInt(hour1_str); hour1 <= hour2; hour1++) {
 		hourid= std::to_string(hour1) + "-" + std::to_string(hour1 + 1);
 		id = selectedRoom + "-" + date + "-" + hourid;
@@ -97,8 +103,9 @@ inline void addAppointmentSlots() {
             return;
         }
 	}
-    MessageBox(AppData::Instance().activeWindow, L"Registro actualizado!", L"Info", MB_OK | MB_ICONINFORMATION);
-    AppData::Instance().writeDebugLog();
+    if (success) {
+	    MessageBox(AppData::Instance().activeWindow, L"Consultorio reservado!", L"Info", MB_OK | MB_ICONINFORMATION);
+    }
 	return;
 }
 
