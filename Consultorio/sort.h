@@ -128,6 +128,28 @@ inline void sortAppointmentsByDateHeap() {
     );
 }
 
+inline void sortAppointmentsByMedicHeap() {
+    heapSort<AppointmentNode>(
+        AppData::Instance().app_list.head,
+        AppData::Instance().app_list.tail,
+        [](AppointmentNode* a, AppointmentNode* b) {
+            return a->medicid < b->medicid;
+        },
+        AppData::Instance().app_list.swapData
+    );
+}
+
+inline void sortAppointmentsByPatientHeap() {
+    heapSort<AppointmentNode>(
+        AppData::Instance().app_list.head,
+        AppData::Instance().app_list.tail,
+        [](AppointmentNode* a, AppointmentNode* b) {
+            return a->patientid < b->patientid;
+        },
+        AppData::Instance().app_list.swapData
+    );
+}
+
 inline void sortUsers() {
     quickSort<UserNode>(
         AppData::Instance().user_list.head,

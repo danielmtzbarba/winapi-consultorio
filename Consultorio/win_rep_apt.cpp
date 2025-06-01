@@ -17,9 +17,9 @@ inline void GenerateAptReport() {
     // ******* BUGFIX: Primero Ordenar por PatientId, luego Ordenar por fecha
  
     // Sort by PatientId
-    sortAppointmentsByPatientQuick();
+    sortAppointmentsByPatientHeap();
 
-    // BINARY SEARCH FOR MEDICID
+    // BINARY SEARCH FOR PATIENTID
     auto patientApts = binarySearchNodes<AppointmentNode, std::string>(
         AppData::Instance().app_list.toVector(),
         patientid,
