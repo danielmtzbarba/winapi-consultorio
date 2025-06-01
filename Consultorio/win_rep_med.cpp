@@ -26,9 +26,11 @@ inline void GenerateMedicReport() {
 	std::string medicid = fieldValues[1];
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
-   
-    //SORT FIRST
-    sortAppointmentsByDateQuick();
+
+    // ******* BUGFIX: Primero Ordenar por MedicId, luego Ordenar por fecha
+ 
+    // Sort by MedicId
+    sortAppointmentsByMedicQuick();
 
     // BINARY SEARCH FOR MEDICID
     auto medicApts = binarySearchNodes<AppointmentNode, std::string>(
@@ -37,21 +39,18 @@ inline void GenerateMedicReport() {
         std::less<>(),    
         [](AppointmentNode* node) { return node->medicid; }
     );
-    /*
 
-    // REMOVE UNDESIRED APTS
+    // FILTER APPOINTMENT BY STATUS
     auto it = std::remove_if(medicApts.begin(), medicApts.end(),
         [](AppointmentNode* node) {
             return node->status == "DISPONIBLE";  // Replace with your desired status
         });
     medicApts.erase(it, medicApts.end());
 
-    // SORT BEFORE SECOND SEARCH
+    // SORT RESULTS BY DATE
     std::sort(medicApts.begin(), medicApts.end(), [](AppointmentNode* a, AppointmentNode* b) {
         return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
         });
-
-    */
 
     // BINARY SEARCH FOR DATES
     auto foundApts = rangeSearchNodes<AppointmentNode, std::tuple<int, int, int>>(

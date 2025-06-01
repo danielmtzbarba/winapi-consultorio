@@ -56,11 +56,13 @@ public:
 
     void writeDebugLog() {
         if (log.is_open()) {
+            logMessage("--- Start Debug Log");
             AppointmentNode* node = app_list.head;
             while (node) {
                 log << node->date << std::endl;
                 node = node->next;
             }
+            logMessage("--- End Debug Log");
         }
     }
 

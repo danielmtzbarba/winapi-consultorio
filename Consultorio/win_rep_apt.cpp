@@ -14,33 +14,41 @@ inline void GenerateAptReport() {
     std::string date_start = readDate(IDC_DTP_CIT_FECHA);
     std::string date_end = readDate(IDC_DTP_CIT_FECHA2);
     
-    //SORT FIRST
-    sortAppointmentsByDateQuick();
+    // ******* BUGFIX: Primero Ordenar por PatientId, luego Ordenar por fecha
+ 
+    // Sort by PatientId
+    sortAppointmentsByPatientQuick();
 
-    // BINARY SEARCH FOR PATIENTID
+    // BINARY SEARCH FOR MEDICID
     auto patientApts = binarySearchNodes<AppointmentNode, std::string>(
         AppData::Instance().app_list.toVector(),
         patientid,
-        std::equal_to<>(),    
+        std::less<>(),    
         [](AppointmentNode* node) { return node->patientid; }
     );
 
-    // SORT BEFORE SECOND SEARCH
+    // FILTER APPOINTMENT BY STATUS
+    auto it = std::remove_if(patientApts.begin(), patientApts.end(),
+        [](AppointmentNode* node) {
+            return node->status == "DISPONIBLE";  // Replace with your desired status
+        });
+    patientApts.erase(it, patientApts.end());
+
+    // SORT RESULTS BY DATE
     std::sort(patientApts.begin(), patientApts.end(), [](AppointmentNode* a, AppointmentNode* b) {
         return dateStrToIntTuple(a->date) < dateStrToIntTuple(b->date);
         });
 
-    // BINARY SEARCH FOR DATSE
+    // BINARY SEARCH FOR DATES
     auto foundApts = rangeSearchNodes<AppointmentNode, std::tuple<int, int, int>>(
         patientApts,
         dateStrToIntTuple(date_start),
         dateStrToIntTuple(date_end),
         [](AppointmentNode* node) { return dateStrToIntTuple(node->date); }
     );
-    
+
    // CLEAN LISTVIEW
     ListView_DeleteAllItems(hListView);
-
 
     // POPULATE LISTVIEW
     for (size_t i = 0; i < foundApts.size(); ++i) {
